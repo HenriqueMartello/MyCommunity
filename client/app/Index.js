@@ -5,8 +5,8 @@ import { Link } from 'expo-router'
 export default function Page() {
   return (
     <View style={styles.container}>
-        <Text>Tela: Index.js</Text>
-      <Link href="/TelaLogin">TelaLogin</Link>
+        <Text>Tela Atual: Index.js</Text>
+      <Link href="/TelaLogin">Ir para TelaLogin</Link>
       <StatusBar style="auto" />
     </View>
   );
