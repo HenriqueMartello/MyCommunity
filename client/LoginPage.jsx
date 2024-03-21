@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
 
 const LoginPage = ( { navigation }) => {
   const [cpf, setCpf] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    // Aqui você pode adicionar lógica para autenticar o usuário com o CPF e a senha
+    if (cpf === '123.456.789-00' && password === 'senha123') {
+      // Comunicação com DB
+      // Se o CPF e a senha estiverem corretos, exibe uma mensagem de sucesso
+      Alert.alert('Login', 'Login realizado com sucesso!');
+    } else {
+      // Se o CPF ou a senha estiverem incorretos, exibe uma mensagem de erro
+      Alert.alert('Erro', 'CPF ou senha incorretos. Por favor, tente novamente.');
+    }
     // Por enquanto, vamos apenas exibir os valores do CPF e da senha em um alerta
-    Alert.alert('Login', `CPF: ${cpf}\nSenha: ${password}`);
+    //Alert.alert('Login', `CPF: ${cpf}\nSenha: ${password}`);
   };
 
   const formatCpf = (text) => {

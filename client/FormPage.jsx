@@ -12,9 +12,42 @@ const FormPage = ({ navigation }) => {
 
   // Função para lidar com o envio do formulário
   const handleSubmit = () => {
-    // To Do
-    Alert.alert('Formulário enviado', `Nome: ${name}`);
+    // Verifica se todos os campos foram preenchidos
+  if (!cpf || !name || !address || !email || !password || !confirmPassword) {
+    Alert.alert('Erro', 'Por favor, preencha todos os campos.');
+    return;
+  }
+
+  // Verifica se o CPF é válido (apenas verifica se tem 11 dígitos)
+  if (cpf.length !== 11) {
+    Alert.alert('Erro', 'Por favor, insira um CPF válido.');
+    return;
+  }
+
+  // Verifica se o email é válido (apenas verifica se tem o formato de email)
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    Alert.alert('Erro', 'Por favor, insira um email válido.');
+    return;
+  }
+
+  // Verifica se a senha tem pelo menos 6 caracteres
+  if (password.length < 6) {
+    Alert.alert('Erro', 'A senha deve ter pelo menos 6 caracteres.');
+    return;
+  }
+
+  // Verifica se a senha e a confirmação de senha são iguais
+  if (password !== confirmPassword) {
+    Alert.alert('Erro', 'As senhas não coincidem.');
+    return;
+  }
+
+  // Se todos os campos forem válidos, pode prosseguir com o envio do formulário
+  // Aqui você pode adicionar lógica para enviar os dados do formulário para o backend
+  Alert.alert('Formulário enviado', `Nome: ${name}`);
   };
+  
   // Função para formatar o CPF enquanto o usuário digita
   const formatCpf = (text) => {
     // Remove todos os caracteres não numéricos
