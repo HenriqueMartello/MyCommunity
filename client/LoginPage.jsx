@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
+import { formatCpf } from './helpers';
 
 const LoginPage = ( { navigation }) => {
   const [cpf, setCpf] = useState('');
@@ -18,22 +19,22 @@ const LoginPage = ( { navigation }) => {
     //Alert.alert('Login', `CPF: ${cpf}\nSenha: ${password}`);
   };
 
-  const formatCpf = (text) => {
-    // Remove todos os caracteres não numéricos
-    let formattedText = text.replace(/\D/g, '');
-    // Adiciona pontos e traço conforme o formato do CPF
-    if (formattedText.length > 3) {
-      formattedText = formattedText.replace(/^(\d{3})(\d)/, '$1.$2');
-    }
-    if (formattedText.length > 6) {
-      formattedText = formattedText.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
-    }
-    if (formattedText.length > 9) {
-      formattedText = formattedText.replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, '$1.$2.$3-$4');
-    }
-    // Atualiza o estado do CPF formatado
-    setCpf(formattedText);
-  }
+  // const formatCpf = (text) => {
+  //   // Remove todos os caracteres não numéricos
+  //   let formattedText = text.replace(/\D/g, '');
+  //   // Adiciona pontos e traço conforme o formato do CPF
+  //   if (formattedText.length > 3) {
+  //     formattedText = formattedText.replace(/^(\d{3})(\d)/, '$1.$2');
+  //   }
+  //   if (formattedText.length > 6) {
+  //     formattedText = formattedText.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
+  //   }
+  //   if (formattedText.length > 9) {
+  //     formattedText = formattedText.replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, '$1.$2.$3-$4');
+  //   }
+  //   // Atualiza o estado do CPF formatado
+  //   setCpf(formattedText);
+  // }
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', paddingHorizontal: 20 }}>
@@ -43,7 +44,7 @@ const LoginPage = ( { navigation }) => {
         style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 10, paddingHorizontal: 10 }}
         placeholder="CPF"
         value={cpf}
-        onChangeText={formatCpf}
+        onChangeText={text => formatCpf(text, setCpf)}
         keyboardType="numeric"
       />
       {/* Campo de entrada para a senha */}
