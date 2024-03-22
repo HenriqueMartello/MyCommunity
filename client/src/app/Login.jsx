@@ -1,12 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { Link } from 'expo-router'
+import { Button, StyleSheet, View } from 'react-native';
+import { useRouter } from 'expo-router'
 
-export default function Page() {
+export default function Login() {
+  const router = useRouter();
+  
   return (
     <View style={styles.container}>
-        <Text>Tela Atual: Index.js</Text>
-      <Link href="/TelaLogin">Ir para TelaLogin</Link>
+      <Button
+      title='Ir para tela inicial'
+      onPress={()=> router.push("/")}
+      />
       <StatusBar style="auto" />
     </View>
   );

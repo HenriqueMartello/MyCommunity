@@ -1,12 +1,14 @@
+import React, { useState, useEffect } from 'react';
+
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { Link } from 'expo-router'
 
-export default function TelaLogin() {
+import FormularioUsuario from '../Components/FormularioUsuario';
+
+export default function Cadastro() {
   return (
     <View style={styles.container}>
-       <Text>Tela Atual: TelaLogin.js</Text>
-      <Link href="/">Ir para Tela Inicial</Link>
+      <FormularioUsuario />
       <StatusBar style="auto" />
     </View>
   );
@@ -14,9 +16,10 @@ export default function TelaLogin() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 2,
     backgroundColor: '#FFF',
     alignItems: 'center',
     justifyContent: 'center',
-  },
+    padding: 30
+  }
 });

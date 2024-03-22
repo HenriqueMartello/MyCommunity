@@ -1,7 +1,7 @@
 const http = require("http");
 const sqlite3 = require("sqlite3").verbose();
 
-// Cria uma conexão com o banco de dados empresa.db si esta criado, si não, esse código criará uma db com esse nome.
+// Cria uma conexão com o banco de dados Usuarios
 const db = new sqlite3.Database("Usuarios.db", (err) => {
     if (err) {
         console.error(err);
@@ -31,10 +31,8 @@ db.run(
     }
 );
 
-// Criando Tabela de Endereços
-// TO DO
 
-// Exemplo consulta de todas as informações da tabela Usuarios.
+// Consulta de todas as informações da tabela Usuarios.
 const search = (callback) => {
     db.all("SELECT * FROM Usuarios", (err, rows) => {
         if (err) {
@@ -45,7 +43,7 @@ const search = (callback) => {
     });
 };
 
-// Exemplo de consulta para adicionar dados ao banco de dados Usuarios.
+// Consulta para adicionar dados ao banco de dados Usuarios.
 const insertData = db.prepare(
     `INSERT INTO Usuarios (nome, CPF, numeroTelefonico, dataNascimento, endereco, email, senha)
     VALUES (?, ?, ?, ?, ?, ?, ?)`,
@@ -58,8 +56,7 @@ const insertData = db.prepare(
     }
 );
 
-
-// Exemplo de consulta para excluir dados do banco de dados Usuarios 
+// Consulta para excluir dados do banco de dados Usuarios 
 const deleteData = db.prepare(
     `DELETE FROM Usuarios WHERE IdUsuario == ?`,
     (err) => {
@@ -71,7 +68,7 @@ const deleteData = db.prepare(
     }
 );
 
-// Exemplo de uma consulta para modificar os dados do banco de dados Usuarios.
+// Consulta para modificar os dados do banco de dados Usuarios.
 const modifyData = db.prepare(
     `UPDATE Usuarios
      SET nome = ?,
@@ -92,19 +89,20 @@ const modifyData = db.prepare(
 );
 
 
-// Criar o servidor e trazer as informações do banco de dados para o servidor - revisar posteriormente
+// Criar o servidor, trazer as informações do banco de dados para o servidor e tratamento das solicitações realizadas
 const server = http.createServer((req, res) => {
-    // Para permitir os CORS e que não tenha problema en este exemplo.
+    // Permissões liberadas para desenvolvimento, porém devem ser ajustadas após criação do login (CORS)
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    // Retorna todas as informações para o servidor.
+    
+    // Retorna todas as informações do servidor para a aplicação (consulta sem filtro/GET)
     search((result) => {
         res.write(JSON.stringify(result));
         res.end();
     });
 
-    // Verifica se é uma solicitação com o método POST.
+    // Tratamento das demais solicitações realizadas pelo cliente
     if (req.method === "POST") {
         let body = "";
         // Recebe as informações enviadas para o servidor.
