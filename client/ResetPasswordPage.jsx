@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert } from 'react-native';
+import { View, Text, TextInput, Button } from 'react-native';
 import { handleResetPassword } from './helpers';
 
 const ResetPasswordPage = () => {
   const [email, setEmail] = useState('');
-
-  // const handleResetPassword = () => {
-  //   // Aqui você pode adicionar lógica para redefinir a senha do usuário com base no e-mail fornecido
-  //   // Por enquanto, vamos apenas exibir o e-mail em um alerta
-  //   Alert.alert('Redefinir Senha', `Um link de redefinição de senha será enviado para: ${email}`);
-  // };
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', paddingHorizontal: 20 }}>

@@ -1,12 +1,16 @@
 import { createStackNavigator } from 'react-navigation'
 
 import HomePage from './HomePage'
-import AboutPage from './AboutPage'
+import LoginPage from './LoginPage';
+import FormPage from './FormPage';
+import ResetPasswordPage from './ResetPasswordPage';
 
 const AppNavigator = createStackNavigator(
 {
   home: HomePage,
-  about: AboutPage
+  login: LoginPage,
+  form: FormPage,
+  reset: ResetPasswordPage
 })
 
 export default AppNavigator;

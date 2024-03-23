@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, Image } from 'react-native';
+import { View, Text, Button, Image, StyleSheet } from 'react-native';
 
 const HomePage = ({ navigation }) => {
     return (
@@ -12,7 +12,7 @@ const HomePage = ({ navigation }) => {
             ></Button>
             <Button 
                 title="Cadastrar Novo Usuário"
-                onPress={() => navigation.navigate('Form')}
+                onPress={() => navigation.navigate('Criar Cadastro')}
             ></Button>
         </View>
     );
