@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
+<<<<<<< Updated upstream:client/Pages/FormPage.js
 import { handleSubmit, formatCpf  } from './helpers';
 import { HomePageButton, LoginButton } from '../Components/Buttons';
+=======
+import { formatCpf, handleSubmit } from './helpers';
+>>>>>>> Stashed changes:client/FormPage.jsx
 
 const FormPage = ({ navigation }) => {
   // Define os estados para armazenar os valores dos campos do formulário
@@ -12,6 +16,34 @@ const FormPage = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
 
+<<<<<<< Updated upstream:client/Pages/FormPage.js
+=======
+  const handleSubmit = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('usuarios')
+        .insert([
+          {
+            cpf,
+            name,
+            address,
+            password,
+            email,
+          },
+        ]);
+
+      if (error) {
+        console.error('Erro ao inserir dados:', error.message);
+      } else {
+        console.log('Dados inseridos com sucesso:', data);
+        // Faça qualquer outra coisa que você queira após o envio bem-sucedido
+      }
+    } catch (error) {
+      console.error('Erro ao inserir dados:', error.message);
+    }
+  };
+
+>>>>>>> Stashed changes:client/FormPage.jsx
   return (
     <View style={{ flex: 1, justifyContent: 'center', paddingHorizontal: 20 }}>
       <Text style={{ fontSize: 20, marginBottom: 20, textAlign: 'center'}}>Cadastrar Novo Usuário</Text>
