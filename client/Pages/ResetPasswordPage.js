@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import { handleResetPassword } from './helpers';
+import { HomePageButton } from '../Components/Buttons';
 
-const ResetPasswordPage = () => {
+const ResetPasswordPage = ({ navigation }) => {
   const [email, setEmail] = useState('');
 
   return (
@@ -18,6 +19,7 @@ const ResetPasswordPage = () => {
       />
       {/* Botão para redefinir a senha */}
       <Button title="Reset Password" onPress={() => handleResetPassword(email)} />
+      <HomePageButton navigation={navigation} />
     </View>
   );
 };

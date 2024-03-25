@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import { handleSubmit, formatCpf  } from './helpers';
+import { HomePageButton, LoginButton } from '../Components/Buttons';
 
 const FormPage = ({ navigation }) => {
   // Define os estados para armazenar os valores dos campos do formulário
@@ -64,14 +65,8 @@ const FormPage = ({ navigation }) => {
       />
       {/* Botão de envio do formulário */}
       <Button title="Finalizar Cadastro" onPress={handleSubmit} />
-      <Button
-        title="Voltar à Tela Inicial"
-        onPress={() => navigation.goBack()}
-      />
-      <Button
-          title="Já Possui Conta? Faça o Login"
-          onPress={() => navigation.navigate('Login')}
-      ></Button>
+      <HomePageButton navigation={navigation} />
+      <LoginButton navigation={navigation} />
     </View>
   );
 };

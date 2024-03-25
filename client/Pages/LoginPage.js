@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import { formatCpf, handleLogin } from './helpers';
+import { ResetPasswordButton, CadastroButton } from '../Components/Buttons';
 
 const LoginPage = ( { navigation }) => {
   const [cpf, setCpf] = useState('');
@@ -28,15 +29,9 @@ const LoginPage = ( { navigation }) => {
       {/* Botão de login */}
       <Button title="Entrar" onPress={handleLogin} />
       {/* Botão para se cadastrar */}
-      <Button 
-          title="Deseja se Cadastrar?"
-          onPress={() => navigation.navigate('Form')}
-      ></Button>
+      <CadastroButton navigation={navigation} />
       {/* Link para redefinir a senha */}
-      <Button 
-          title="Esqueci Minha Senha"
-          onPress={() => navigation.navigate('Redefinir Senha')}
-      ></Button>
+      <ResetPasswordButton navigation={navigation} />
       {/* Botão de login com Gmail */}
       <Button title="Entrar com Gmail" onPress={() => {}} />
     </View>
