@@ -1,39 +1,44 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
-import MediaPicker from '../Components/MediaPicker'; // Componente criado anteriormente
-import AddressInput from '../Components/AddressInput'; // Componente criado anteriormente
+import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
+import MediaPicker from '../Components/MediaPicker'; 
 import DropdownMenu from '../Components/DropdownMenu';
 import { Header } from '../Components/Header';
 
-const RequestPage = ( { navigation }) => {
+const RequestPage = ({ navigation }) => {
   const [selectedItem, setSelectedItem] = useState('');
   const [address, setAddress] = useState('');
   const [description, setDescription] = useState('');
   const [mediaUri, setMediaUri] = useState(null);
 
   const handleItemSelect = (item) => {
+    if (!item) return;
     setSelectedItem(item);
   };
 
   const handleAddressSubmit = (newAddress) => {
+    if (!newAddress) return;
     setAddress(newAddress);
   };
 
   const handleDescriptionChange = (text) => {
+    if (!text) return;
     setDescription(text);
   };
 
   const handleMediaSelect = (uri) => {
+    if (!uri) return;
     setMediaUri(uri);
   };
 
   const handleSubmit = () => {
-    // Aqui você pode enviar as informações para o backend
-    console.log('Item selecionado:', selectedItem);
-    console.log('Endereço:', address);
-    console.log('Descrição:', description);
-    console.log('URI da mídia:', mediaUri);
-    // Limpar campos após o envio
+    if (!selectedItem || !address || !description || !mediaUri) {
+      console.error('Missing required fields');
+      return;
+    }
+    console.log('Item selected:', selectedItem);
+    console.log('Address:', address);
+    console.log('Description:', description);
+    console.log('Media URI:', mediaUri);
     setSelectedItem('');
     setAddress('');
     setDescription('');
@@ -42,41 +47,35 @@ const RequestPage = ( { navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Header username="Usuário" onLogout={() => console.log('Logout')}></Header>
+      <Header username="Usuário" onLogout={() => console.log('Logout')} />
       <Text>Nova Solicitação</Text>
-      {/* Dropdown para selecionar um item */}
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Selecione um Item:</Text>
         <DropdownMenu onSelect={handleItemSelect} />
       </View>
-
-      {/* Campo de entrada para digitar um endereço */}
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Endereço:</Text>
-        <AddressInput onSubmit={handleAddressSubmit} />
+        <TextInput
+          style={[styles.input, { height: 40 }]}
+          onChangeText={text => setAddress(text)}
+          value={address}
+          placeholder="Enter your address"
+          multiline={false}
+        />
       </View>
-
-      {/* Campo de entrada para digitar uma descrição */}
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Descrição:</Text>
         <TextInput
           style={styles.input}
           multiline
           placeholder="Digite uma descrição"
-          value={description}
           onChangeText={handleDescriptionChange}
+          value={description}
         />
       </View>
-
-      {/* Componente para selecionar uma foto ou vídeo */}
       <MediaPicker onSelect={handleMediaSelect} />
-
-      {/* Botão para enviar a solicitação */}
       <Button title="Enviar Solicitação" onPress={handleSubmit} />
-      <Button
-        title="Voltar"
-        onPress={() => navigation.goBack()}
-      />
+      <Button title="Voltar" onPress={() => navigation.goBack()} />
     </View>
   );
 };

@@ -12,28 +12,49 @@ const DropdownMenu = () => {
   };
 
   const handleOptionSelect = (option) => {
+    if (!option) {
+      console.error('Option cannot be null or undefined');
+      return;
+    }
     setSelectedOption(option);
     setIsOpen(false);
+  };
+
+  const renderDropdownMenu = () => {
+    if (!options) {
+      console.error('Options cannot be null or undefined');
+      return null;
+    }
+    return (
+      options.map((option, index) => {
+        if (!option) {
+          console.error(`Option at index ${index} cannot be null or undefined`);
+          return null;
+        }
+        return (
+          <TouchableOpacity
+            key={index}
+            style={styles.dropdownMenuItem}
+            onPress={() => handleOptionSelect(option)}
+          >
+            <Text style={styles.dropdownMenuItemText}>{option}</Text>
+          </TouchableOpacity>
+        );
+      })
+    );
   };
 
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.dropdownButton} onPress={toggleDropdown}>
         <Text style={styles.dropdownButtonText}>
-          {selectedOption ? selectedOption : 'Selecione uma opção'}
+          {selectedOption || 'Selecione uma opção'}
         </Text>
       </TouchableOpacity>
 
       {isOpen && (
         <View style={styles.dropdownMenu}>
-          {options.map((option, index) => (
-            <TouchableOpacity
-              key={index}
-              style={styles.dropdownMenuItem}
-              onPress={() => handleOptionSelect(option)}>
-              <Text style={styles.dropdownMenuItemText}>{option}</Text>
-            </TouchableOpacity>
-          ))}
+          {renderDropdownMenu()}
         </View>
       )}
     </View>

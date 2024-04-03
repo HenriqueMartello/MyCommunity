@@ -2,7 +2,9 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { styles } from './headerStyle';
 
+// as variaveis username e onLogout devem ficar na função que vai pegar as informações do DB
 const Header = ({ username, onLogout }) => {
+  
   return (
     <View style={styles.header}>
       <Image

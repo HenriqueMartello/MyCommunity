@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
-import { handleSubmit, formatCpf  } from './helpers';
+import { handleFormSubmit, formatCpf  } from './helpers';
 import { HomePageButton, LoginButton } from '../Components/Buttons';
 
 const FormPage = ({ navigation }) => {
@@ -20,8 +20,8 @@ const FormPage = ({ navigation }) => {
         style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 10, paddingHorizontal: 10 }}
         placeholder="CPF"
         value={cpf}
-        onChangeText={text => formatCpf(text, setCpf)} // Utiliza a função de formatação enquanto o usuário digita
-        keyboardType="numeric" // Define o teclado como numérico para garantir que apenas números sejam inseridos
+        onChangeText={text => formatCpf(text, setCpf)}
+        keyboardType="numeric" 
       />
       {/* Campo de entrada para o nome */}
       <TextInput
@@ -64,9 +64,10 @@ const FormPage = ({ navigation }) => {
         secureTextEntry={true}
       />
       {/* Botão de envio do formulário */}
-      <Button title="Finalizar Cadastro" onPress={handleSubmit} />
+      <Button title="Finalizar Cadastro" onPress={handleFormSubmit} />
       <HomePageButton navigation={navigation} />
       <LoginButton navigation={navigation} />
+      <Button title="Voltar" onPress={() => navigation.goBack()} />
     </View>
   );
 };

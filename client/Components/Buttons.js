@@ -2,9 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 const LoginButton = ({ navigation }) => {
-  const handlePress = () => {
-    navigation.navigate('Login');
-  };
+  const handlePress = () => navigation.navigate('Login');
 
   return (
     <TouchableOpacity style={styles.button} onPress={handlePress}>
@@ -13,29 +11,95 @@ const LoginButton = ({ navigation }) => {
   );
 };
 
-const CadastroButton = ({ navigation }) => {
-  const handlePress = () => {
-    navigation.navigate('Criar Cadastro');
-  };
+const CreateAccountButton = ({ navigation }) => {
+  const handlePress = () => navigation.navigate('CreateAccount');
 
   return (
     <TouchableOpacity style={styles.button} onPress={handlePress}>
-      <Text style={styles.buttonText}>Criar Cadastro</Text>
+      <Text style={styles.buttonText}>Create Account</Text>
     </TouchableOpacity>
   );
 };
 
-const SistemaButton = ({ navigation }) => {
-  const handlePress = () => {
-    navigation.navigate('Sistema');
-  };
+const SystemButton = ({ navigation }) => {
+  const handleNavigation = () => navigation.navigate('System');
 
   return (
-    <TouchableOpacity style={styles.button} onPress={handlePress}>
-      <Text style={styles.buttonText}>Sistema</Text>
+    <TouchableOpacity style={styles.button} onPress={handleNavigation}>
+      <Text style={styles.buttonText}>System</Text>
     </TouchableOpacity>
   );
 };
+
+const ResetPasswordButton = ({ navigation }) => {
+  const handleNavigateToResetPassword = () => navigation.navigate('ResetPassword');
+
+  return (
+    <TouchableOpacity style={styles.button} onPress={handleNavigateToResetPassword}>
+      <Text style={styles.buttonText}>Reset Password</Text>
+    </TouchableOpacity>
+  );
+};
+
+const HomePageButton = ({ navigation }) => {
+  const handleNavigation = () => navigation.navigate('Home');
+
+  return (
+    <TouchableOpacity style={styles.button} onPress={handleNavigation}>
+      <Text style={styles.buttonText}>Home Page</Text>
+    </TouchableOpacity>
+  );
+};
+
+const NewRequestButton = ({ navigation }) => {
+  const handleNavigation = () => navigation.navigate('Request');
+
+  return (
+    <TouchableOpacity style={styles.button} onPress={handleNavigation}>
+      <Text style={styles.buttonText}>Nova Solicitação</Text>
+    </TouchableOpacity>
+  );
+};
+
+const LearnMoreButton = ({ navigation }) => {
+  const handleNavigation = () => navigation.navigate('LearnMore');
+
+  return (
+    <TouchableOpacity style={styles.button} onPress={handleNavigation}>
+      <Text style={styles.buttonText}>Aprenda Mais</Text>
+    </TouchableOpacity>
+  );
+};
+
+const DevelopmentButton = ({ navigation }) => {
+  const handleNavigation = () => navigation.navigate('Development');
+
+  return (
+    <TouchableOpacity style={styles.button} onPress={handleNavigation}>
+      <Text style={styles.buttonText}>Development</Text>
+    </TouchableOpacity>
+  );
+};
+
+const MyRequestsButton = ({ navigation }) => {
+  const handleNavigation = () => navigation.navigate('MyRequests');
+
+  return (
+    <TouchableOpacity style={styles.button} onPress={handleNavigation}>
+      <Text style={styles.buttonText}>My Requests</Text>
+    </TouchableOpacity>
+  )
+}
+
+const OtherInformationButton = ({ navigation }) => {
+  const handleNavigation = () => navigation.navigate('OtherInformations');
+  
+  return (
+    <TouchableOpacity style={styles.button} onPress={handleNavigation}>
+      <Text style={styles.buttonText}>Other Information</Text>
+    </TouchableOpacity>
+  )
+}
 
 const styles = StyleSheet.create({
   button: {
@@ -52,113 +116,4 @@ const styles = StyleSheet.create({
   },
 });
 
-
-const ResetPasswordButton = ({ navigation }) => {
-    const handlePress = () => {
-      navigation.navigate('Redefinir Senha');
-    };
-  
-    return (
-      <TouchableOpacity style={ResetPasswordButtonStyles.button} onPress={handlePress}>
-        <Text style={ResetPasswordButtonStyles.buttonText}>Redefinir a Senha</Text>
-      </TouchableOpacity>
-    );
-  };
-  
-const ResetPasswordButtonStyles = StyleSheet.create({
-    button: {
-        backgroundColor: '#007bff',
-        paddingVertical: 12,
-        paddingHorizontal: 24,
-        borderRadius: 5,
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 16,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-});
-
-const HomePageButton = ({ navigation }) => {
-    const handlePress = () => {
-      navigation.navigate('My Community');
-    };
-  
-    return (
-      <TouchableOpacity style={HomePageButtonStyles.button} onPress={handlePress}>
-        <Text style={HomePageButtonStyles.buttonText}>Página Inicial</Text>
-      </TouchableOpacity>
-    );
-  };
-  
-const HomePageButtonStyles = StyleSheet.create({
-    button: {
-        backgroundColor: '#007bff',
-        paddingVertical: 12,
-        paddingHorizontal: 24,
-        borderRadius: 5,
-    },
-        buttonText: {
-        color: '#fff',
-        fontSize: 16,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-});
-
-const NovaSolicitacaoButton = ({ navigation }) => {
-    const handlePress = () => {
-      navigation.navigate('Nova Solicitacao');
-    };
-  
-    return (
-      <TouchableOpacity style={NovaSolicitacaoButtonStyles.button} onPress={handlePress}>
-        <Text style={NovaSolicitacaoButtonStyles.buttonText}>Nova Solicitação</Text>
-      </TouchableOpacity>
-    );
-  };
-  
-const NovaSolicitacaoButtonStyles = StyleSheet.create({
-    button: {
-        backgroundColor: '#007bff',
-        paddingVertical: 12,
-        paddingHorizontal: 24,
-        borderRadius: 5,
-    },
-        buttonText: {
-        color: '#fff',
-        fontSize: 16,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-});
-
-const DevelopmentButton = ({ navigation }) => {
-    const handlePress = () => {
-      navigation.navigate('Development');
-    };
-  
-    return (
-      <TouchableOpacity style={DevelopmentButtonStyles.button} onPress={handlePress}>
-        <Text style={DevelopmentButtonStyles.buttonText}>Development</Text>
-      </TouchableOpacity>
-    );
-  };
-  
-const DevelopmentButtonStyles = StyleSheet.create({
-    button: {
-        backgroundColor: '#007bff',
-        paddingVertical: 12,
-        paddingHorizontal: 24,
-        borderRadius: 5,
-    },
-        buttonText: {
-        color: '#fff',
-        fontSize: 16,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-});
-
-export { LoginButton, CadastroButton, SistemaButton, ResetPasswordButton, HomePageButton, NovaSolicitacaoButton, DevelopmentButton };
+export { LoginButton, CreateAccountButton, SystemButton, ResetPasswordButton, HomePageButton, NewRequestButton, DevelopmentButton, LearnMoreButton, MyRequestsButton, OtherInformationButton };

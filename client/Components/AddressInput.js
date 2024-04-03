@@ -5,23 +5,33 @@ const AddressInput = ({ onSubmit }) => {
   const [address, setAddress] = useState('');
 
   const handleInputChange = (text) => {
+    if(text === null) {
+      return;
+    }
     setAddress(text);
   };
 
   const handleSubmit = () => {
+    if(!onSubmit || typeof onSubmit !== 'function') {
+      return;
+    }
     onSubmit(address);
     setAddress('');
   };
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Digite o endereço"
-        value={address}
-        onChangeText={handleInputChange}
-      />
-      <Button title="Enviar" onPress={handleSubmit} />
+      { address === null ? null : (
+        <TextInput
+          style={styles.input}
+          placeholder="Digite o endereço"
+          value={address}
+          onChangeText={handleInputChange}
+        />
+      )}
+      { onSubmit === null || typeof onSubmit !== 'function' ? null : (
+        <Button title="Enviar" onPress={handleSubmit} />
+      )}
     </View>
   );
 };

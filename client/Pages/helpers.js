@@ -1,73 +1,61 @@
+import { Alert } from 'react-native';
+
 export const handleResetPassword = (email) => {
     // Aqui você pode adicionar lógica para redefinir a senha do usuário com base no e-mail fornecido
     // Por enquanto, vamos apenas exibir o e-mail em um alerta
     Alert.alert('Redefinir Senha', `Um link de redefinição de senha será enviado para: ${email}`);
   };
   
-export const formatCpf = (text, setCpf) => {
-  // Remove todos os caracteres não numéricos
-  let formattedText = text.replace(/\D/g, '');
-  // Adiciona pontos e traço conforme o formato do CPF
-  if (formattedText.length > 3) {
-    formattedText = formattedText.replace(/^(\d{3})(\d)/, '$1.$2');
-  }
-  if (formattedText.length > 6) {
-    formattedText = formattedText.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
-  }
-  if (formattedText.length > 9) {
-    formattedText = formattedText.replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, '$1.$2.$3-$4');
-  }
-  // Atualiza o estado do CPF formatado
-  setCpf(formattedText);
+export const formatCpf = (inputText, setCpf) => {
+  const formattedCpf = inputText.replace(/[^0-9]/g, '')
+    .replace(/^(\d{3})(\d)/, '$1.$2')
+    .replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3')
+    .replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, '$1.$2.$3-$4');
+  setCpf(formattedCpf);
 };
   
-// Função para lidar com o envio do formulário
-export const handleSubmit = () => {
-  // Verifica se todos os campos foram preenchidos
-if (!cpf || !name || !address || !email || !password || !confirmPassword) {
-  Alert.alert('Erro', 'Por favor, preencha todos os campos.');
-  return;
-}
+export const handleFormSubmit = () => {
+  const requiredFields = ['cpf', 'name', 'address', 'email', 'password', 'confirmPassword'];
+  const isFormInvalid = requiredFields.some(field => !eval(field) || eval(field) === '');
+  const isCpfInvalid = cpf && cpf.length !== 11;
+  const isEmailInvalid = email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isPasswordInvalid = password && (password.length < 6 || password !== confirmPassword);
 
-// Verifica se o CPF é válido (apenas verifica se tem 11 dígitos)
-if (cpf.length !== 11) {
-  Alert.alert('Erro', 'Por favor, insira um CPF válido.');
-  return;
-}
+  let errorMessage;
+  if (isFormInvalid) {
+    errorMessage = 'Por favor, preencha todos os campos.';
+  } else if (isCpfInvalid) {
+    errorMessage = 'Por favor, insira um CPF válido.';
+  } else if (isEmailInvalid) {
+    errorMessage = 'Por favor, insira um email válido.';
+  } else if (isPasswordInvalid) {
+    errorMessage = 'A senha deve ter pelo menos 6 caracteres e as senhas não coincidem.';
+  }
 
-// Verifica se o email é válido (apenas verifica se tem o formato de email)
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-if (!emailRegex.test(email)) {
-  Alert.alert('Erro', 'Por favor, insira um email válido.');
-  return;
-}
+  if (errorMessage) {
+    Alert.alert('Erro', errorMessage);
+    return;
+  }
 
-// Verifica se a senha tem pelo menos 6 caracteres
-if (password.length < 6) {
-  Alert.alert('Erro', 'A senha deve ter pelo menos 6 caracteres.');
-  return;
-}
-
-// Verifica se a senha e a confirmação de senha são iguais
-if (password !== confirmPassword) {
-  Alert.alert('Erro', 'As senhas não coincidem.');
-  return;
-}
-
-// Se todos os campos forem válidos, pode prosseguir com o envio do formulário
-// Aqui você pode adicionar lógica para enviar os dados do formulário para o backend
-Alert.alert('Formulário enviado', `Nome: ${name}`);
+  Alert.alert('Formulário enviado', `Nome: ${name || ''}`);
 };
 
-export const handleLogin = () => {
-  if (cpf === '123.456.789-00' && password === 'senha123') {
-    // Comunicação com DB
-    // Se o CPF e a senha estiverem corretos, exibe uma mensagem de sucesso
-    Alert.alert('Login', 'Login realizado com sucesso!');
-  } else {
-    // Se o CPF ou a senha estiverem incorretos, exibe uma mensagem de erro
-    Alert.alert('Erro', 'CPF ou senha incorretos. Por favor, tente novamente.');
+export const handleLogin = (cpf, password) => {
+  if (!cpf || !password) {
+    Alert.alert('Erro', 'CPF e senha são obrigatórios.');
+    return;
   }
-  // Por enquanto, vamos apenas exibir os valores do CPF e da senha em um alerta
-  //Alert.alert('Login', `CPF: ${cpf}\nSenha: ${password}`);
+  
+  try {
+    if (cpf === '123.456.789-00' && password === 'senha123') {
+      Alert.alert('Login', 'Login realizado com sucesso!');
+    } else {
+      Alert.alert('Erro', 'CPF ou senha incorretos. Por favor, tente novamente.');
+    }
+  } catch(error) {
+    console.error('Error logging in:', error);
+    Alert.alert('Erro', 'Falha ao fazer login.');
+  }
+  
+  Alert.alert('Login', `CPF: ${cpf}\nSenha: ${password}`);
 };
