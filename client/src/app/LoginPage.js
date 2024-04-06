@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
 import { formatCpf, handleLogin } from './helpers';
 import { ResetPasswordButton, CreateAccountButton } from '../Components/Buttons';
+import { useRouter } from 'expo-router'
 
-const LoginPage = ({ navigation }) => {
+const LoginPage = () => {
   const [cpf, setCpf] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const handleLoginPress = () => {
     if (!cpf || !password) {
@@ -45,7 +47,10 @@ const LoginPage = ({ navigation }) => {
       />
       <CreateAccountButton navigation={navigation} />
       <ResetPasswordButton navigation={navigation} />
-      <Button title="Voltar" onPress={() => navigation.goBack()} />
+      <Button
+      title='Voltar'
+      onPress={()=> router.push("/")}
+      />
     </View>
   );
 };

@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 import { LoginButton, CreateAccountButton, DevelopmentButton } from '../Components/Buttons'
@@ -13,3 +14,4 @@ const HomePage = ({ navigation }) => (
 );
 
 export default HomePage;
+*/

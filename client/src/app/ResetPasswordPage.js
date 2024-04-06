@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import { handleResetPassword } from './helpers';
 import { HomePageButton } from '../Components/Buttons';
+import { useRouter } from 'expo-router'
 
-const ResetPasswordPage = ({ navigation }) => {
+const router = useRouter();
+const ResetPasswordPage = () => {
   const [email, setEmail] = useState('');
 
   return (
@@ -19,7 +21,10 @@ const ResetPasswordPage = ({ navigation }) => {
       />
       {/* Botão para redefinir a senha */}
       <Button title="Reset Password" onPress={() => handleResetPassword(email)} />
-      <HomePageButton navigation={navigation} />
+      <Button
+      title='Voltar'
+      onPress={()=> router.push("/")}
+      />
     </View>
   );
 };

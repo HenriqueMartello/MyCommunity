@@ -4,7 +4,7 @@ import MediaPicker from '../Components/MediaPicker';
 import DropdownMenu from '../Components/DropdownMenu';
 import { Header } from '../Components/Header';
 
-const RequestPage = ({ navigation }) => {
+const RequestPage = () => {
   const [selectedItem, setSelectedItem] = useState('');
   const [address, setAddress] = useState('');
   const [description, setDescription] = useState('');

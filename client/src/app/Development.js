@@ -1,11 +1,9 @@
 import React from "react";
-import { View, Text } from "react-native";
-import { LoginButton, CreateAccountButton, SystemButton, ResetPasswordButton, HomePageButton, NewRequestButton, LearnMoreButton, MyRequestsButton, OtherInformationButton } from "../Components/Buttons";
+import { View } from "react-native";
+import { LoginButton, CreateAccountButton, SystemButton, ResetPasswordButton, NewRequestButton, LearnMoreButton, MyRequestsButton, OtherInformationButton } from "../Components/Buttons";
 
-const Development = ({ navigation }) => (
+const Development = () => (
   <View>
-    <Text>Quick Path:</Text>
-    <HomePageButton navigation={navigation} />
     <LoginButton navigation={navigation} />
     <CreateAccountButton navigation={navigation} />
     <SystemButton navigation={navigation} />

@@ -1,7 +1,9 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
+import { useRouter } from 'expo-router'
 
-const OtherInformations = ({ navigation } ) => {
+const router = useRouter();
+const OtherInformations = () => {
 
     return (
         <View>
@@ -12,7 +14,10 @@ const OtherInformations = ({ navigation } ) => {
             <Text>Prefeitura: 00 000 000</Text>
             <Text>Polícia Militar: 00 000 000</Text>
             <Text>Samu: 00 000 000</Text>
-            <Button title="Voltar" onPress={() => navigation.goBack()} />
+            <Button
+            title='Voltar'
+            onPress={()=> router.push("/")}
+            />
         </View>
     )
 }

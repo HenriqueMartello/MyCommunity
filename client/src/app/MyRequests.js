@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router'
 
-const MyRequests = ({ navigation }) => {
+const router = useRouter();
+const MyRequests = () => {
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
@@ -32,7 +34,10 @@ const MyRequests = ({ navigation }) => {
           </View>
         ))
       )}
-      <Button title="Voltar" onPress={() => navigation.goBack()} />
+      <Button
+      title='Voltar'
+      onPress={()=> router.push("/")}
+      />
     </View>
   );
 };

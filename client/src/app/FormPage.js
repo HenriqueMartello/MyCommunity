@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import { handleFormSubmit, formatCpf  } from './helpers';
 import { HomePageButton, LoginButton } from '../Components/Buttons';
+import { useRouter } from 'expo-router'
 
-const FormPage = ({ navigation }) => {
+const router = useRouter();
+
+const FormPage = () => {
   // Define os estados para armazenar os valores dos campos do formulário
   const [cpf, setCpf] = useState('');
   const [name, setName] = useState('');
@@ -65,9 +68,11 @@ const FormPage = ({ navigation }) => {
       />
       {/* Botão de envio do formulário */}
       <Button title="Finalizar Cadastro" onPress={handleFormSubmit} />
-      <HomePageButton navigation={navigation} />
       <LoginButton navigation={navigation} />
-      <Button title="Voltar" onPress={() => navigation.goBack()} />
+      <Button
+      title='Voltar'
+      onPress={()=> router.push("/")}
+      />
     </View>
   );
 };

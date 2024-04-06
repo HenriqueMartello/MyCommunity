@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 const LoginButton = ({ navigation }) => {
-  const handlePress = () => navigation.navigate('Login');
+  const handlePress = () => navigation.navigate('LoginPage');
 
   return (
     <TouchableOpacity style={styles.button} onPress={handlePress}>
@@ -12,7 +12,7 @@ const LoginButton = ({ navigation }) => {
 };
 
 const CreateAccountButton = ({ navigation }) => {
-  const handlePress = () => navigation.navigate('CreateAccount');
+  const handlePress = () => navigation.navigate('FormPage');
 
   return (
     <TouchableOpacity style={styles.button} onPress={handlePress}>
@@ -32,7 +32,7 @@ const SystemButton = ({ navigation }) => {
 };
 
 const ResetPasswordButton = ({ navigation }) => {
-  const handleNavigateToResetPassword = () => navigation.navigate('ResetPassword');
+  const handleNavigateToResetPassword = () => navigation.navigate('ResetPasswordPage');
 
   return (
     <TouchableOpacity style={styles.button} onPress={handleNavigateToResetPassword}>
@@ -41,8 +41,9 @@ const ResetPasswordButton = ({ navigation }) => {
   );
 };
 
+/*
 const HomePageButton = ({ navigation }) => {
-  const handleNavigation = () => navigation.navigate('Home');
+  const handleNavigation = () => navigation.navigate('HomePage');
 
   return (
     <TouchableOpacity style={styles.button} onPress={handleNavigation}>
@@ -50,9 +51,10 @@ const HomePageButton = ({ navigation }) => {
     </TouchableOpacity>
   );
 };
+*/
 
 const NewRequestButton = ({ navigation }) => {
-  const handleNavigation = () => navigation.navigate('Request');
+  const handleNavigation = () => navigation.navigate('RequestPage');
 
   return (
     <TouchableOpacity style={styles.button} onPress={handleNavigation}>
@@ -116,4 +118,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { LoginButton, CreateAccountButton, SystemButton, ResetPasswordButton, HomePageButton, NewRequestButton, DevelopmentButton, LearnMoreButton, MyRequestsButton, OtherInformationButton };
+export { LoginButton, CreateAccountButton, SystemButton, ResetPasswordButton, NewRequestButton, DevelopmentButton, LearnMoreButton, MyRequestsButton, OtherInformationButton };
