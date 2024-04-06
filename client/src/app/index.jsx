@@ -10,21 +10,12 @@ export default function Home() {
   
   return (
     <View style={styles.container}>
-      {/* Versão Henrique */}
-      {/* 
-      <Button
-      title='Ir para Tela de Cadastro de Usuario'
-      onPress={()=> router.push("/Cadastro")}
-      />
-      <Button
-      title='Ir para Tela de Alteração de Cadastros de Usuários'
-      color='purple'
-      onPress={()=> router.push("/ConsultaUsuarios")}
-      />
-      */}
-
     <LoginButton navigation={navigation} />
-    <CreateAccountButton navigation={navigation} />
+    <Button
+      title='Ir para Tela de Cadastro'
+      color='purple'
+      onPress={()=> router.push("/RegisterPage")}
+      />
     <DevelopmentButton navigation={navigation} />
 
       <StatusBar style="auto" />

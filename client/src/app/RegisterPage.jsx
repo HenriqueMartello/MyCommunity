@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, Button, Text } from 'react-native';
+import { StyleSheet, View, TextInput, Button, Text, Alert } from 'react-native';
+import axios from 'axios';
 
-export default function FormularioUsuario() {
+import { useRouter } from 'expo-router'
+const router = useRouter();
+
+export default function RegisterPage() {
 
   // Variável contento as informações necessárias para o envio da solicitação (campos do banco de dados)
     const [dataToInsert, setDataToInsert] = useState({
@@ -27,6 +31,46 @@ export default function FormularioUsuario() {
     };
 
     // Cadastro de Usuário | Método POST
+    function handleSubmit() {
+      const userData = {
+        nome: dataToInsert.nome,
+        CPF: dataToInsert.CPF,
+        numeroTelefonico: dataToInsert.numeroTelefonico,
+        dataNascimento: dataToInsert.dataNascimento,
+        endereco: dataToInsert.endereco,
+        email: dataToInsert.email,
+        senha: dataToInsert.senha,
+      };
+
+      if (validarCampos()) {
+        axios
+        .post("http://192.168.1.7:5000/registro", userData)
+        .then((res) => {
+          // Tratamento de Respostas do Backend/Servidor
+          console.log(JSON.stringify(res.data))
+          switch (res.data.status) {
+            case "OK":
+              Alert.alert("Usuário Criado com sucesso!");
+              router.push("LoginPage");
+            break;
+            case "emailRegistrado":
+              Alert.alert("E-mail já registrado!");
+            break;
+            case "CPFRegistrado":
+              Alert.alert("CPF já registrado!");
+            break;
+            default:
+              Alert.alert(JSON.stringify(res.data));
+          }
+          
+        }) 
+        .catch(e => console.log(e));
+      } else {
+        Alert.alert("Preencha informações necessárias!")
+      }
+    }
+
+    /* Método utilizando SQLite
     const handleSubmit = () => {
       if (validarCampos()) {
         fetch("http://localhost:5000", {
@@ -46,6 +90,7 @@ export default function FormularioUsuario() {
         setMensagem("Por favor, preencha todos os campos corretamente.");
       }
     };
+    */
 
     // Validação de campos no formulario antes de permitir o envio da solicitação ao banco de dados.
     const validarCampos = () => {
