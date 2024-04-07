@@ -1,43 +1,41 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, Button } from 'react-native';
+import { Link, router } from 'expo-router';
 
-const LoginButton = ({ navigation }) => {
-  const handlePress = () => navigation.navigate('LoginPage');
-
+const LoginButton = () => {
   return (
-    <TouchableOpacity style={styles.button} onPress={handlePress}>
-      <Text style={styles.buttonText}>Login</Text>
-    </TouchableOpacity>
+      <Button 
+        title="Login"
+        onPress={() => router.push("/LoginPage")}/>
   );
 };
 
-const CreateAccountButton = ({ navigation }) => {
-  const handlePress = () => navigation.navigate('FormPage');
 
+const CreateAccountButton = () => {
   return (
-    <TouchableOpacity style={styles.button} onPress={handlePress}>
-      <Text style={styles.buttonText}>Create Account</Text>
-    </TouchableOpacity>
+    <Button
+      title="Create Account"
+      onPress={() => router.push('/FormPage')}
+    />
   );
 };
 
-const SystemButton = ({ navigation }) => {
-  const handleNavigation = () => navigation.navigate('System');
 
+const SystemButton = () => {
   return (
-    <TouchableOpacity style={styles.button} onPress={handleNavigation}>
-      <Text style={styles.buttonText}>System</Text>
-    </TouchableOpacity>
+    <Button
+      title='System'
+      onPress={() => router.push('/System')}
+    />
   );
 };
 
-const ResetPasswordButton = ({ navigation }) => {
-  const handleNavigateToResetPassword = () => navigation.navigate('ResetPasswordPage');
-
+const ResetPasswordButton = () => {
   return (
-    <TouchableOpacity style={styles.button} onPress={handleNavigateToResetPassword}>
-      <Text style={styles.buttonText}>Reset Password</Text>
-    </TouchableOpacity>
+    <Button
+      title='Reset Password'
+      onPress={() => router.push('/ResetPasswordPage')}
+    />
   );
 };
 
@@ -53,55 +51,50 @@ const HomePageButton = ({ navigation }) => {
 };
 */
 
-const NewRequestButton = ({ navigation }) => {
-  const handleNavigation = () => navigation.navigate('RequestPage');
-
+const NewRequestButton = () => {
   return (
-    <TouchableOpacity style={styles.button} onPress={handleNavigation}>
-      <Text style={styles.buttonText}>Nova Solicitação</Text>
-    </TouchableOpacity>
+    <Button
+      title='Nova Solicitação'
+      onPress={() => router.push('/RequestPage')}
+    />
   );
 };
 
-const LearnMoreButton = ({ navigation }) => {
-  const handleNavigation = () => navigation.navigate('LearnMore');
-
+const LearnMoreButton = () => {
   return (
-    <TouchableOpacity style={styles.button} onPress={handleNavigation}>
-      <Text style={styles.buttonText}>Aprenda Mais</Text>
-    </TouchableOpacity>
+    <Button
+      title='Aprenda Mais'
+      onPress={() => router.push('/LearnMore')}
+    />
   );
 };
 
-const DevelopmentButton = ({ navigation }) => {
-  const handleNavigation = () => navigation.navigate('Development');
-
+const DevelopmentButton = () => {
   return (
-    <TouchableOpacity style={styles.button} onPress={handleNavigation}>
-      <Text style={styles.buttonText}>Development</Text>
-    </TouchableOpacity>
+    <Button
+      title='Development'
+      onPress={() => router.push('/Development')}
+    />
   );
 };
 
-const MyRequestsButton = ({ navigation }) => {
-  const handleNavigation = () => navigation.navigate('MyRequests');
-
+const MyRequestsButton = () => {
   return (
-    <TouchableOpacity style={styles.button} onPress={handleNavigation}>
-      <Text style={styles.buttonText}>My Requests</Text>
-    </TouchableOpacity>
-  )
-}
+    <Button
+      title='My Requests'
+      onPress={() => router.push('/MyRequests')}
+    />
+  );
+};
 
-const OtherInformationButton = ({ navigation }) => {
-  const handleNavigation = () => navigation.navigate('OtherInformations');
-  
+const OtherInformationButton = () => {
   return (
-    <TouchableOpacity style={styles.button} onPress={handleNavigation}>
-      <Text style={styles.buttonText}>Other Information</Text>
-    </TouchableOpacity>
-  )
-}
+    <Button
+      title='Other Information'
+      onPress={() => router.push('/OtherInformations')}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   button: {

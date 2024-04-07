@@ -12,6 +12,7 @@ export default function Layout() {
         <Stack.Screen name="HomePage" options={{ title: "Tela Inicial" }} />
         <Stack.Screen name="LoginPage" options={{ title: "Tela de Login" }} />
         <Stack.Screen name="SystemPage" options={{ title: "Sistema" }} />
+        <Stack.Screen name="Development" options={{ title: "Development" }} />
       </Stack>
     );
 }

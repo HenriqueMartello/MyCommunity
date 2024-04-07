@@ -10,14 +10,13 @@ export default function Home() {
   
   return (
     <View style={styles.container}>
-    <LoginButton navigation={navigation} />
+    <LoginButton/>
     <Button
       title='Ir para Tela de Cadastro'
       color='purple'
       onPress={()=> router.push("/RegisterPage")}
       />
-    <DevelopmentButton navigation={navigation} />
-
+    <DevelopmentButton/>
       <StatusBar style="auto" />
     </View>
       
