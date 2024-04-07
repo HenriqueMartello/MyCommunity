@@ -3,6 +3,9 @@ import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
 import MediaPicker from '../Components/MediaPicker'; 
 import DropdownMenu from '../Components/DropdownMenu';
 import { Header } from '../Components/Header';
+import { useRouter } from 'expo-router'
+
+const router = useRouter();
 
 const RequestPage = () => {
   const [selectedItem, setSelectedItem] = useState('');
@@ -75,7 +78,7 @@ const RequestPage = () => {
       </View>
       <MediaPicker onSelect={handleMediaSelect} />
       <Button title="Enviar Solicitação" onPress={handleSubmit} />
-      <Button title="Voltar" onPress={() => navigation.goBack()} />
+      <Button title="Voltar" onPress={() => router.back()} />
     </View>
   );
 };

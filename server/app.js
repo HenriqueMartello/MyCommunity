@@ -3,9 +3,12 @@ const app = express();
 const mongoose = require("mongoose");
 const porta = 5000;
 app.use(express.json());
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const mongoUrl = "mongodb+srv://admin:34NRWclKor3509gv@cluster0.x4vlfk5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
+const JWT_SECRET = "}9iN[y^l(KOAc2T9xOVe6ZW7D%R7i3jlJj,j)^l5";
 
 // Conexão com banco de dados do MongoDB
 mongoose.connect(mongoUrl).then(() =>{
@@ -29,9 +32,9 @@ app.use((req, res, next) => {
 // API
 app.get("/", (req, res) => {
     res.send({status: "Started"});
-})
+});
 
-// Registro 
+// Registro de Usuários
 app.post('/registro', async(req, res)=> {
     const {nome, CPF, numeroTelefonico, dataNascimento, endereco, email, senha} = req.body;
 
@@ -65,9 +68,29 @@ app.post('/registro', async(req, res)=> {
     } catch (e) {
         res.send({status: "ERRO", data: e})
     }
-})
+});
 
+// Login de Usuários
+app.post('/login', async(req, res) => {
+    const {CPF, senha} = req.body;
+    const usuarioRegistrado = await User.findOne({CPF: CPF});
+
+    if (!usuarioRegistrado) {
+        return res.send({status: "UsuarioDesconhecido", data: "Este usuário não está registrado!"});
+    }
+
+    // Testar se a senha fornecida bate com o hash da senha do banco de dados
+    if (await bcrypt.compare(senha, usuarioRegistrado.senha)) {
+        const token = jwt.sign({ CPF: usuarioRegistrado.CPF }, JWT_SECRET);
+        if (res.status(201)) {
+            return res.send({status: "OK", data: token});
+        } else {
+            return res.send({error: "Erro"});
+        }
+    }
+})
+;
 // Iniciar servidor
 app.listen(porta, () => {
     console.log(`Servidor iniciado na porta ${porta}.`);
-})
+});

@@ -1,4 +1,8 @@
 import { Alert } from 'react-native';
+import axios from 'axios';
+import { useRouter } from 'expo-router'
+
+const router = useRouter();
 
 export const handleResetPassword = (email) => {
     // Aqui você pode adicionar lógica para redefinir a senha do usuário com base no e-mail fornecido
@@ -41,10 +45,29 @@ export const handleFormSubmit = () => {
 };
 
 export const handleLogin = (cpf, password) => {
+  
   if (!cpf || !password) {
     Alert.alert('Erro', 'CPF e senha são obrigatórios.');
+    console.log('CPF e senha são obrigatórios.')
     return;
   }
+
+  cpfTratado = cpf.replace(/[^\d]/g, '');
+
+  const userData = {
+    CPF: cpfTratado,
+    senha: password
+  };
+  axios
+  .post("http://192.168.1.7:5000/login", userData)
+  .then(res => {
+    if (res.data.status = "OK") {
+      Alert.alert("Login realizado com sucesso!");
+      router.push("/System");
+    }
+  });
+
+  /*
   
   try {
     if (cpf === '123.456.789-00' && password === 'senha123') {
@@ -58,4 +81,5 @@ export const handleLogin = (cpf, password) => {
   }
   
   Alert.alert('Login', `CPF: ${cpf}\nSenha: ${password}`);
+ */
 };
