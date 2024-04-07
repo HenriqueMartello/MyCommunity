@@ -6,7 +6,7 @@ import { useRouter } from 'expo-router'
 
 const router = useRouter();
 
-const FormPage = () => {
+const FormPage = ({ navigation }) => {
   // Define os estados para armazenar os valores dos campos do formulário
   const [cpf, setCpf] = useState('');
   const [name, setName] = useState('');

@@ -61,9 +61,17 @@ export const handleLogin = (cpf, password) => {
   axios
   .post("http://192.168.1.7:5000/login", userData)
   .then(res => {
-    if (res.data.status = "OK") {
-      Alert.alert("Login realizado com sucesso!");
-      router.push("/System");
+    console.log(res.data.status);
+    switch (res.data.status) {
+      case "IncorrectInformation":
+        Alert.alert("Usuário ou senha não estão corretos!");
+      break;
+      case "OK":
+        Alert.alert("Login realizado com sucesso!");
+        router.push("/System");
+      break;
+      default:
+        Alert.alert("Erro no login!");
     }
   });
 

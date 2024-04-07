@@ -66,7 +66,7 @@ export default function RegisterPage() {
         }) 
         .catch(e => console.log(e));
       } else {
-        Alert.alert("Preencha informações necessárias!")
+        Alert.alert("Informações não atendem os requisitos!")
       }
     }
 
@@ -169,7 +169,7 @@ export default function RegisterPage() {
         />
         <View style={styles.passwordContainer}>
           <TextInput
-            style={[styles.passwordInput, {width: '100%'}]} // Define a largura como 100%
+            style={[styles.passwordInput, {width: '60%'}]} // Define a largura como 100%
             value={dataToInsert.senha}
             onChangeText={(text) => handleChange("senha", text)}
             placeholder="Senha"
@@ -187,6 +187,10 @@ export default function RegisterPage() {
           />
         </View>
         <Button title="Salvar" onPress={handleSubmit} />
+        <Button
+        title='Voltar'
+        onPress={()=> router.push("/")}
+        />
         <Text style={styles.mensagem}>{mensagem}</Text>
     </View>
   )}

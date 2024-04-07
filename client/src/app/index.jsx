@@ -3,7 +3,7 @@ import { Button, StyleSheet, View } from 'react-native';
 import { useRouter } from 'expo-router'
 
 // Components
-import { LoginButton, CreateAccountButton, DevelopmentButton } from '../Components/Buttons';
+import { LoginButton } from '../Components/Buttons';
 
 export default function Home() {
   const router = useRouter();
@@ -16,7 +16,6 @@ export default function Home() {
       color='purple'
       onPress={()=> router.push("/RegisterPage")}
       />
-    <DevelopmentButton/>
       <StatusBar style="auto" />
     </View>
       

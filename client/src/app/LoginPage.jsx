@@ -4,7 +4,7 @@ import { formatCpf, handleLogin } from './helpers';
 import { ResetPasswordButton, CreateAccountButton } from '../Components/Buttons';
 import { useRouter } from 'expo-router'
 
-const LoginPage = () => {
+const LoginPage = ({ navigation }) => {
   const [cpf, setCpf] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();

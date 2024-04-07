@@ -75,9 +75,12 @@ app.post('/login', async(req, res) => {
     const {CPF, senha} = req.body;
     const usuarioRegistrado = await User.findOne({CPF: CPF});
 
+    // Falha de segurança pois em case de brute-force poderia descobrir usuários que estão registrados
+    /*
     if (!usuarioRegistrado) {
         return res.send({status: "UsuarioDesconhecido", data: "Este usuário não está registrado!"});
     }
+    */
 
     // Testar se a senha fornecida bate com o hash da senha do banco de dados
     if (await bcrypt.compare(senha, usuarioRegistrado.senha)) {
@@ -85,8 +88,10 @@ app.post('/login', async(req, res) => {
         if (res.status(201)) {
             return res.send({status: "OK", data: token});
         } else {
-            return res.send({error: "Erro"});
+            return res.send({stauts: "Erro", data: "Erro"});
         }
+    } else {
+        return res.send({status: "IncorrectInformation", data: "Usuario ou senha incorretos"});
     }
 })
 ;
