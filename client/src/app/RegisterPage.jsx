@@ -44,7 +44,7 @@ export default function RegisterPage() {
 
       if (validarCampos()) {
         axios
-        .post("http://192.168.1.7:5000/registro", userData)
+        .post("https://my-community-api.vercel.app/api/registro", userData)
         .then((res) => {
           // Tratamento de Respostas do Backend/Servidor
           console.log(JSON.stringify(res.data))

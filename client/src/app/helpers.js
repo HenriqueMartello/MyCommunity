@@ -59,7 +59,7 @@ export const handleLogin = (cpf, password) => {
     senha: password
   };
   axios
-  .post("http://192.168.1.7:5000/login", userData)
+  .post("https://my-community-api.vercel.app/api/login", userData)
   .then(res => {
     console.log(res.data.status);
     switch (res.data.status) {
