@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
-import { formatCpf, handleLogin } from './helpers';
+import { formatCpf, handleLogin } from '../Components/helpers';
 import { ResetPasswordButton, CreateAccountButton } from '../Components/Buttons';
 import { useRouter } from 'expo-router'
 
 const LoginPage = () => {
   const [cpf, setCpf] = useState('');
-  const [password, setPassword] = useState('');
+  const [senha, setPassword] = useState('');
   const router = useRouter();
 
   const handleLoginPress = () => {
-    if (!cpf || !password) {
+    if (!cpf || !senha) {
       Alert.alert('Error', 'CPF and Password are required.');
       return;
     }
 
     try {
-      handleLogin(cpf, password);
+      handleLogin(cpf, senha);
     } catch(error) {
       console.error('Error logging in:', error);
       Alert.alert('Error', 'Failed to log in.');
@@ -36,14 +36,14 @@ const LoginPage = () => {
       <TextInput
         style={styles.input}
         placeholder="Password"
-        value={password}
+        value={senha}
         onChangeText={setPassword}
         secureTextEntry
       />
       <Button 
         title="Login" 
         onPress={handleLoginPress} 
-        disabled={!cpf || !password} 
+        disabled={!cpf || !senha} 
       />
       <CreateAccountButton navigation={navigation} />
       <ResetPasswordButton navigation={navigation} />
