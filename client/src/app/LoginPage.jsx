@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
   text: {
     color: "#397688",
     fontWeight: "500",
-    fontFamily: "system-ui",
     opacity: "60%",
   },
   content: {

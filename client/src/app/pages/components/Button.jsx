@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 
 export const Button = ({ label, onPress, disabled, width = "auto" }) => {
   const button = StyleSheet.create({
@@ -12,7 +12,6 @@ export const Button = ({ label, onPress, disabled, width = "auto" }) => {
       height: 48,
       justifyContent: "center",
       fontSize: 19,
-      fontFamily: "system-ui",
       width: width,
       boxShadow: "2px 2px 2px 1px rgba(0, 0, 0, 0.2)",
     },
@@ -20,7 +19,7 @@ export const Button = ({ label, onPress, disabled, width = "auto" }) => {
 
   return (
     <Pressable style={button.default} onPress={onPress} disabled={disabled}>
-      {label}
+      <Text>{label}</Text>
     </Pressable>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Alert, Image, Pressable } from "react-native";
+import { StyleSheet, View, Alert, Image, Pressable, Text } from "react-native";
 import axios from "axios";
 import logo from "../assets/logo.svg";
 
@@ -8,9 +8,10 @@ import { Input } from "./pages/components/Input";
 import { Button } from "./pages/components/Button";
 import { Icon } from "./pages/components/Icon";
 import { ContentWrapper } from "./pages/components/ContentWrapper";
-const router = useRouter();
 
 export default function RegisterPage() {
+  const router = useRouter();
+
   // Variável contento as informações necessárias para o envio da solicitação (campos do banco de dados)
   const [dataToInsert, setDataToInsert] = useState({
     nome: "",

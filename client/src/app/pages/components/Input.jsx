@@ -56,7 +56,7 @@ export const Input = ({
       />
       {!value && <Text style={styles.placeholder}>{placeholder}</Text>}
 
-      {<div style={styles.iconWrapper}>{icon}</div>}
+      {<View style={styles.iconWrapper}>{icon}</View>}
     </View>
   );
 };
