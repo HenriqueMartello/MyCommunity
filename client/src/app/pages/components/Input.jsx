@@ -40,7 +40,7 @@ export const Input = ({
       top: "33%",
       fontSize: 15,
       left: 10,
-      fontWeight: 500,
+      //fontWeight: 500,
     },
   });
   return (

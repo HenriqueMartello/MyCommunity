@@ -56,7 +56,7 @@ export default function RegisterPage() {
           switch (res.data.status) {
             case "OK":
               Alert.alert("Usuário Criado com sucesso!");
-              router.push("LoginPage");
+              router.push("/");
               break;
             case "emailRegistrado":
               Alert.alert("E-mail já registrado!");
@@ -111,7 +111,7 @@ export default function RegisterPage() {
   // Retorna o componente do Formulario de Usuário
   return (
     <ContentWrapper
-      style={{ justifyContent: "start", padding: 40, gap: "2rem" }}
+      style={{ justifyContent: "start", padding: 40 }}
     >
       <Image source={logo} style={{ width: "7rem", height: "6rem" }} />
 
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
   content: {
     justifyContent: "center",
     alignItems: "center",
-    gap: 20,
+    //gap: 20,
     width: "100%",
   },
   mensagem: {

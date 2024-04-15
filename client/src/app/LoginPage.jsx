@@ -50,7 +50,7 @@ export const LoginPage = () => {
           onPress={() => router.push("/ResetPasswordPage")}
           style={{ width: "100%" }}
         >
-          <Text style={[styles.text, { textAlign: "end" }]}>
+          <Text style={[styles.text, { textAlign: "auto" }]}>
             Esqueci minha senha
           </Text>
         </Pressable>
@@ -70,7 +70,7 @@ export const LoginPage = () => {
         >
           <Text style={styles.text}>Não tem cadastro? </Text>
           <Pressable onPress={() => router.push("/RegisterPage")}>
-            <Text style={[styles.text, { opacity: "100%" }]}>Cadastre-se</Text>
+            <Text style={[styles.text, { opacity: 1 }]}>Cadastre-se</Text>
           </Pressable>
         </View>
       </View>
@@ -84,14 +84,14 @@ export const LoginPage = () => {
 const styles = StyleSheet.create({
   text: {
     color: "#397688",
-    fontWeight: "500",
-    opacity: "60%",
+    //fontWeight: 500,
+    opacity: 0.6,
   },
   content: {
     width: "100%",
     padding: "2.3rem",
     alignItems: "center",
-    gap: "10px",
+    //gap: "10px",
   },
   bottomView: {
     backgroundColor: "#377A8A",

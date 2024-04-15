@@ -7,7 +7,7 @@ export const Button = ({ label, onPress, disabled, width = "auto" }) => {
       color: "white",
       padding: 15,
       borderRadius: 10,
-      fontWeight: 600,
+      //fontWeight: 600,
       textAlign: "center",
       height: 48,
       justifyContent: "center",
