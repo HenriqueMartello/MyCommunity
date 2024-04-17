@@ -8,7 +8,6 @@ export default function Layout() {
           <Stack.Screen name="AlterarUsuario" options={{ title: "Alteração de Cadastro de Usuários" }} />
           <Stack.Screen name="ConsultaUsuarios" options={{ title: "Consulta de Usuários" }} />
           <Stack.Screen name="RegisterPage" options={{ title: "Cadastro de Usuário" }} />
-          <Stack.Screen name="RegisterPage" options={{ title: "Cadastro de Usuário" }} />
           <Stack.Screen name="System" options={{ title: "Sistema" }} />
           <Stack.Screen name="Development" options={{ title: "Development" }} />
       </Stack>
