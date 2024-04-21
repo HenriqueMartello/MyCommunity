@@ -1,6 +1,6 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, Button } from 'react-native';
-import { Link, router } from 'expo-router';
+import { StyleSheet, Button } from 'react-native';
+import { router } from 'expo-router';
 
 const LoginButton = () => {
   return (
@@ -39,17 +39,14 @@ const ResetPasswordButton = () => {
   );
 };
 
-/*
 const HomePageButton = ({ navigation }) => {
-  const handleNavigation = () => navigation.navigate('HomePage');
-
   return (
-    <TouchableOpacity style={styles.button} onPress={handleNavigation}>
-      <Text style={styles.buttonText}>Home Page</Text>
-    </TouchableOpacity>
+    <Button
+      title='Página Inicial'
+      onPress={() => router.push('/index')}
+    />
   );
 };
-*/
 
 const NewRequestButton = () => {
   return (
@@ -111,4 +108,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { LoginButton, CreateAccountButton, SystemButton, ResetPasswordButton, NewRequestButton, DevelopmentButton, LearnMoreButton, MyRequestsButton, OtherInformationButton };
+export { LoginButton, CreateAccountButton, SystemButton, ResetPasswordButton, NewRequestButton, DevelopmentButton, LearnMoreButton, MyRequestsButton, OtherInformationButton, HomePageButton };

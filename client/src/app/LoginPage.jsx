@@ -1,8 +1,32 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
-import { formatCpf, handleLogin } from '../Components/helpers';
+import { formatCpf } from '../Components/helpers';
 import { ResetPasswordButton, CreateAccountButton } from '../Components/Buttons';
 import { useRouter } from 'expo-router'
+import axios from 'axios';
+const handleLogin = (cpf, senha) => {
+  
+  if (!cpf || !senha) {
+    Alert.alert('Erro', 'CPF e senha são obrigatórios.');
+    console.log('CPF e senha são obrigatórios.')
+    return;
+  }
+
+  cpfTratado = cpf.replace(/[^\d]/g, '');
+
+  const userData = {
+    CPF: cpfTratado,
+    senha: senha
+  };
+  axios
+  .post("http://192.168.1.7:5000/login", userData)
+  .then(res => {
+    if (res.data.status = "OK") {
+      Alert.alert("Login realizado com sucesso!");
+      router.push("/System");
+    }
+  });
+};
 
 const LoginPage = () => {
   const [cpf, setCpf] = useState('');
@@ -32,10 +56,11 @@ const LoginPage = () => {
         value={cpf}
         onChangeText={text => formatCpf(text, setCpf)}
         keyboardType="numeric"
+        maxLength={14}
       />
       <TextInput
         style={styles.input}
-        placeholder="Password"
+        placeholder="Senha"
         value={senha}
         onChangeText={setPassword}
         secureTextEntry

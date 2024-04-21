@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, Button, Text, Alert } from 'react-native';
 import axios from 'axios';
-
+import { formatCpf, formatInputDate } from '../Components/helpers';
 import { useRouter } from 'expo-router'
+
 const router = useRouter();
 
 export default function RegisterPage() {
 
+  
   // Variável contento as informações necessárias para o envio da solicitação (campos do banco de dados)
     const [dataToInsert, setDataToInsert] = useState({
       nome: "",
@@ -22,13 +24,20 @@ export default function RegisterPage() {
     // Variável para mensagens de notificação da aplicação
     const [mensagem, setMensagem] = useState("");
 
-    // Função para lidar com a alteração nos campos
-    const handleChange = (name, value) => {
-      setDataToInsert({
-        ...dataToInsert,
-        [name]: value,
-      });
-    };
+  const handleChange = (field, value) => {
+    setDataToInsert(prevData => ({ ...prevData, [field]: value }));
+
+    if (field === 'numeroTelefonico') {
+      const formattedNumber = formatPhoneNumber(value);
+      setDataToInsert(prevData => ({ ...prevData, [field]: formattedNumber }));
+    }
+  };
+
+  const formatPhoneNumber = (phoneNumber) => {
+    const cleanedNumber = phoneNumber.replace(/\D/g, ""); // Remove non-digit characters
+    const formattedNumber = cleanedNumber.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+    return formattedNumber;
+  }
 
     // Cadastro de Usuário | Método POST
     function handleSubmit() {
@@ -41,7 +50,7 @@ export default function RegisterPage() {
         email: dataToInsert.email,
         senha: dataToInsert.senha,
       };
-
+      
       if (validarCampos()) {
         axios
         .post("http://192.168.1.7:5000/registro", userData)
@@ -70,28 +79,6 @@ export default function RegisterPage() {
       }
     }
 
-    /* Método utilizando SQLite
-    const handleSubmit = () => {
-      if (validarCampos()) {
-        fetch("http://localhost:5000", {
-          method: "POST",
-          body: JSON.stringify(dataToInsert),
-          headers: { "Content-Type": "application/json" },
-        })
-        .then(response => response.json())
-        .then(() => {
-          setMensagem("Usuário adicionado com sucesso!");
-        })
-        .catch((err) => {
-          console.error(err);
-          setMensagem("Erro ao adicionar usuário.");
-        });
-      } else {
-        setMensagem("Por favor, preencha todos os campos corretamente.");
-      }
-    };
-    */
-
     // Validação de campos no formulario antes de permitir o envio da solicitação ao banco de dados.
     const validarCampos = () => {
       if (
@@ -117,14 +104,10 @@ export default function RegisterPage() {
         <TextInput
           style={styles.input}
           value={dataToInsert.CPF}
-          onChangeText={(text) => {
-            if (/^\d+$/.test(text) || text === "") {
-              handleChange("CPF", text);
-            }
-          }}
+          onChangeText={(text) => formatCpf(text, (formattedText) => handleChange("CPF", formattedText))}
           placeholder="CPF (somente números)"
           keyboardType="numeric"
-          maxLength={11}
+          maxLength={14}
           autoCompleteType="off"
         />
         <TextInput
@@ -143,14 +126,10 @@ export default function RegisterPage() {
         <TextInput
           style={styles.input}
           value={dataToInsert.dataNascimento}
-          onChangeText={(text) => {
-            if (/^\d+$/.test(text) || text === "") {
-              handleChange("dataNascimento", text);
-            }
-          }}
+          onChangeText={(text) => formatInputDate(text, (formattedText) => handleChange("dataNascimento", formattedText))}
           placeholder="Data de Nascimento (DDMMYYYY)"
           keyboardType="numeric"
-          maxLength={8}
+          maxLength={10}
           autoCompleteType="off"
         />
         <TextInput

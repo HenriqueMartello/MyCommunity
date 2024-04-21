@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
-import { handleResetPassword } from './helpers';
+import { handleResetPassword } from '../Components/helpers';
 import { HomePageButton } from '../Components/Buttons';
 import { useRouter } from 'expo-router'
 
@@ -25,6 +25,7 @@ const ResetPasswordPage = () => {
       title='Voltar'
       onPress={()=> router.push("/")}
       />
+      <HomePageButton></HomePageButton>
     </View>
   );
 };
