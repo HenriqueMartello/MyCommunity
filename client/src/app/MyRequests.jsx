@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router'
+import React, { useState, useEffect } from "react";
+import { View, Text, Button, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
 
-const router = useRouter();
 const MyRequests = () => {
+  const router = useRouter();
+
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const MyRequests = () => {
       {requests.length === 0 ? (
         <Text>No existing requests for this user.</Text>
       ) : (
-        requests.map(request => (
+        requests.map((request) => (
           <View key={request.id}>
             <Text>{request.title}</Text>
             <Text>{request.description}</Text>
@@ -34,10 +35,7 @@ const MyRequests = () => {
           </View>
         ))
       )}
-      <Button
-      title='Voltar'
-      onPress={()=> router.push("/")}
-      />
+      <Button title="Voltar" onPress={() => router.push("/")} />
     </View>
   );
 };
@@ -45,8 +43,8 @@ const MyRequests = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   title: {
     fontSize: 20,

@@ -31,8 +31,13 @@ export const LoginPage = () => {
   };
 
   return (
-    <ContentWrapper style={{ justifyContent: "flex-end" }}>
+    <ContentWrapper
+      style={{
+        justifyContent: "flex-end",
+      }}
+    >
       {/* fix - maybe put safe Area View */}
+
       <View style={styles.content}>
         <Image
           source={logo}
@@ -87,7 +92,6 @@ export const LoginPage = () => {
           onPress={handleLoginPress}
           disabled={!cpf || !password}
         />
-
         <View
           style={{
             display: "flex",

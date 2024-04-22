@@ -22,18 +22,14 @@ export const Button = ({ label, onPress, disabled, width }) => {
   });
 
   return (
-    <View style={{ width: width }}>
+    <Pressable style={{ width: width }} onPress={onPress}>
       <ShadowStyle>
         <View style={{ borderRadius: 10 }}>
-          <Pressable
-            style={button.default}
-            onPress={onPress}
-            disabled={disabled}
-          >
+          <Pressable style={button.default} disabled={disabled}>
             <Text style={button.label}>{label}</Text>
           </Pressable>
         </View>
       </ShadowStyle>
-    </View>
+    </Pressable>
   );
 };

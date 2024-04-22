@@ -118,7 +118,7 @@ export default function RegisterPage() {
 
   // Retorna o componente do Formulario de Usuário
   return (
-    <KeyboardAvoidingView enabled behavior="padding" style={{ flex: 1 }}>
+    <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
       <ContentWrapper
         style={{
           flex: 1,
