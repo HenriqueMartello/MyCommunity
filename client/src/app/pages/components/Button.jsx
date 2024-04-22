@@ -1,25 +1,39 @@
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { ShadowStyle } from "./ShadowStyle";
 
-export const Button = ({ label, onPress, disabled, width = "auto" }) => {
+export const Button = ({ label, onPress, disabled, width }) => {
   const button = StyleSheet.create({
     default: {
       backgroundColor: "#397688",
-      color: "white",
       padding: 15,
       borderRadius: 10,
-      //fontWeight: 600,
       textAlign: "center",
-      height: 48,
+      height: "auto",
       justifyContent: "center",
+      width: "100%",
+    },
+    label: {
+      color: "white",
+      fontWeight: "bold",
       fontSize: 19,
-      width: width,
-      boxShadow: "2px 2px 2px 1px rgba(0, 0, 0, 0.2)",
+      alignSelf: "center",
+      lineHeight: 19,
     },
   });
 
   return (
-    <Pressable style={button.default} onPress={onPress} disabled={disabled}>
-      <Text>{label}</Text>
-    </Pressable>
+    <View style={{ width: width }}>
+      <ShadowStyle>
+        <View style={{ borderRadius: 10 }}>
+          <Pressable
+            style={button.default}
+            onPress={onPress}
+            disabled={disabled}
+          >
+            <Text style={button.label}>{label}</Text>
+          </Pressable>
+        </View>
+      </ShadowStyle>
+    </View>
   );
 };
