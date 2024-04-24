@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const DropdownMenu = () => {
+const DropdownMenu = ({ onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
-  const options = ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4', 'Opção 5'];
+  const options = ['Limpeza', 'Manutenção', 'Lixo'];
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -17,6 +17,7 @@ const DropdownMenu = () => {
       return;
     }
     setSelectedOption(option);
+    onSelect(option); // Aqui enviamos o valor selecionado de volta para o componente pai
     setIsOpen(false);
   };
 

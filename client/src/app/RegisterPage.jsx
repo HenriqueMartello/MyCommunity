@@ -8,6 +8,7 @@ import { Input } from "./pages/components/Input";
 import { Button } from "./pages/components/Button";
 import { Icon } from "./pages/components/Icon";
 import { ContentWrapper } from "./pages/components/ContentWrapper";
+import { backendUrl } from "../Components/GlobalVariables";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -42,14 +43,19 @@ export default function RegisterPage() {
       CPF: dataToInsert.CPF,
       numeroTelefonico: dataToInsert.numeroTelefonico,
       dataNascimento: dataToInsert.dataNascimento,
+      CEP: dataToInsert.CEP,
       endereco: dataToInsert.endereco,
+      numero: dataToInsert.numero,
+      bairro: dataToInsert.bairro,
+      cidade: dataToInsert.cidade,
+      UF: dataToInsert.UF,
       email: dataToInsert.email,
       senha: dataToInsert.senha,
     };
 
     if (validarCampos()) {
       axios
-        .post("https://my-community-api.vercel.app/api/registro", userData)
+        .post(`${backendUrl}registro`, userData)
         .then((res) => {
           // Tratamento de Respostas do Backend/Servidor
           console.log(JSON.stringify(res.data));
@@ -163,10 +169,47 @@ export default function RegisterPage() {
           secureTextEntry={false}
         />
         <Input
+          value={dataToInsert.CEP}
+          onChangeText={(text) => handleChange("CEP", text)}
+          keyboardType="numeric"
+          placeholder="CEP"
+          autoCompleteType="street-address"
+          secureTextEntry={false}
+        />
+        <Input
           value={dataToInsert.endereco}
           onChangeText={(text) => handleChange("endereco", text)}
-          placeholder="Endereço"
+          placeholder="Endereco"
           autoCompleteType="street-address"
+          secureTextEntry={false}
+        />
+        <Input
+          value={dataToInsert.numero}
+          onChangeText={(text) => handleChange("numero", text)}
+          keyboardType="numeric"
+          placeholder="Numero"
+          autoCompleteType="number"
+          secureTextEntry={false}
+        />
+        <Input
+          value={dataToInsert.bairro}
+          onChangeText={(text) => handleChange("bairro", text)}
+          placeholder="Bairro"
+          autoCompleteType="off"
+          secureTextEntry={false}
+        />
+        <Input
+          value={dataToInsert.cidade}
+          onChangeText={(text) => handleChange("cidade", text)}
+          placeholder="Cidade"
+          autoCompleteType="off"
+          secureTextEntry={false}
+        />
+        <Input
+          value={dataToInsert.UF}
+          onChangeText={(text) => handleChange("UF", text)}
+          placeholder="UF"
+          autoCompleteType="off"
           secureTextEntry={false}
         />
         <Input

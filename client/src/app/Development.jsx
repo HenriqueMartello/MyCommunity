@@ -1,8 +1,11 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Button } from "react-native";
 import { LoginButton, CreateAccountButton, SystemButton, ResetPasswordButton, NewRequestButton, LearnMoreButton, MyRequestsButton, OtherInformationButton } from "../Components/Buttons";
+import { useRouter } from 'expo-router'
 
-const Development = () => (
+const router = useRouter();
+
+const Development = ({ navigation }) => (
   <View>
     <LoginButton navigation={navigation} />
     <CreateAccountButton navigation={navigation} />
@@ -12,6 +15,10 @@ const Development = () => (
     <LearnMoreButton navigation={navigation} />
     <MyRequestsButton navigation={navigation} />
     <OtherInformationButton navigation={navigation} />
+    <Button
+      title='Voltar'
+      onPress={()=> router.push("/")}
+      />
   </View>
 );
 

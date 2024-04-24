@@ -1,6 +1,8 @@
 import { Alert } from 'react-native';
 import axios from 'axios';
-import { useRouter } from 'expo-router'
+import { useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { backendUrl } from '../Components/GlobalVariables';
 
 const router = useRouter();
 
@@ -59,7 +61,7 @@ export const handleLogin = (cpf, password) => {
     senha: password
   };
   axios
-  .post("https://my-community-api.vercel.app/api/login", userData)
+  .post(`${backendUrl}login`, userData)
   .then(res => {
     console.log(res.data.status);
     switch (res.data.status) {
@@ -68,6 +70,9 @@ export const handleLogin = (cpf, password) => {
       break;
       case "OK":
         Alert.alert("Login realizado com sucesso!");
+        // Salvar token JWT, para manter usuário
+        AsyncStorage.setItem("token", res.data.data);
+        AsyncStorage.setItem("usuarioLogado", JSON.stringify(true));
         router.push("/System");
       break;
       default:
