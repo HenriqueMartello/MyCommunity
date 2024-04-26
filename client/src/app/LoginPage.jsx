@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, Image, Alert, Pressable, StyleSheet } from "react-native";
-import { formatCpf, handleLogin } from "./helpers";
+import { formatCpf } from "../Components/helpers";
 import logo from "../assets/logo.png";
 import image from "../assets/image.png";
 
@@ -10,6 +10,49 @@ import { useRouter } from "expo-router";
 import { ContentWrapper } from "./pages/components/ContentWrapper";
 import { Icon } from "./pages/components/Icon";
 
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { backendUrl } from '../Components/GlobalVariables';
+
+const router = useRouter();
+
+// Função para Tratar Login
+const handleLogin = (cpf, password) => {
+  
+  if (!cpf || !password) {
+    Alert.alert('Erro', 'CPF e senha são obrigatórios.');
+    console.log('CPF e senha são obrigatórios.')
+    return;
+  }
+
+  cpfTratado = cpf.replace(/[^\d]/g, '');
+
+  const userData = {
+    CPF: cpfTratado,
+    senha: password
+  };
+  axios
+  .post(`${backendUrl}login`, userData)
+  .then(res => {
+    console.log(res.data.status);
+    switch (res.data.status) {
+      case "IncorrectInformation":
+        Alert.alert("Usuário ou senha não estão corretos!");
+      break;
+      case "OK":
+        Alert.alert("Login realizado com sucesso!");
+        // Salvar token JWT, para manter usuário
+        AsyncStorage.setItem("token", res.data.data);
+        AsyncStorage.setItem("usuarioLogado", JSON.stringify(true));
+        router.push("/System");
+      break;
+      default:
+        Alert.alert("Erro no login!");
+    }
+  });
+};
+
+// Página de Login
 export const LoginPage = () => {
   const [cpf, setCpf] = useState("");
   const [password, setPassword] = useState("");
@@ -18,10 +61,6 @@ export const LoginPage = () => {
   const router = useRouter();
 
   const handleLoginPress = () => {
-    if (!cpf || !password) {
-      Alert.alert("Error", "CPF and Password are required.");
-      return;
-    }
     try {
       handleLogin(cpf, password);
     } catch (error) {
@@ -36,7 +75,6 @@ export const LoginPage = () => {
         justifyContent: "flex-end",
       }}
     >
-      {/* fix - maybe put safe Area View */}
 
       <View style={styles.content}>
         <Image
@@ -54,6 +92,7 @@ export const LoginPage = () => {
           onChangeText={(text) => formatCpf(text, setCpf)}
           keyboardType="numeric"
           secureTextEntry={false}
+          maxLength={14}
         />
         <Input
           placeholder="Senha"

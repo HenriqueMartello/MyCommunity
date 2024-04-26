@@ -7,6 +7,7 @@ import {
   Pressable,
   Text,
   KeyboardAvoidingView,
+  ScrollView,
 } from "react-native";
 import axios from "axios";
 import logo from "../assets/logo.png";
@@ -17,10 +18,12 @@ import { Button } from "./pages/components/Button";
 import { Icon } from "./pages/components/Icon";
 import { ContentWrapper } from "./pages/components/ContentWrapper";
 import { backendUrl } from "../Components/GlobalVariables";
+import { formatCpf, formatInputDate } from '../Components/helpers';
 
 export default function RegisterPage() {
   const router = useRouter();
 
+  
   // Variável contento as informações necessárias para o envio da solicitação (campos do banco de dados)
   const [dataToInsert, setDataToInsert] = useState({
     nome: "",
@@ -46,11 +49,15 @@ export default function RegisterPage() {
 
   // Cadastro de Usuário | Método POST
   function handleSubmit() {
+
+    cpfTratado = dataToInsert.CPF.replace(/[^\d]/g, '');
+    dtNasTratada = dataToInsert.dataNascimento.replace(/\//g, '');
+
     const userData = {
       nome: dataToInsert.nome,
-      CPF: dataToInsert.CPF,
+      CPF: cpfTratado,
       numeroTelefonico: dataToInsert.numeroTelefonico,
-      dataNascimento: dataToInsert.dataNascimento,
+      dataNascimento: dtNasTratada,
       CEP: dataToInsert.CEP,
       endereco: dataToInsert.endereco,
       numero: dataToInsert.numero,
@@ -88,34 +95,12 @@ export default function RegisterPage() {
     }
   }
 
-  /* Método utilizando SQLite
-    const handleSubmit = () => {
-      if (validarCampos()) {
-        fetch("http://localhost:5000", {
-          method: "POST",
-          body: JSON.stringify(dataToInsert),
-          headers: { "Content-Type": "application/json" },
-        })
-        .then(response => response.json())
-        .then(() => {
-          setMensagem("Usuário adicionado com sucesso!");
-        })
-        .catch((err) => {
-          console.error(err);
-          setMensagem("Erro ao adicionar usuário.");
-        });
-      } else {
-        setMensagem("Por favor, preencha todos os campos corretamente.");
-      }
-    };
-    */
-
   // Validação de campos no formulario antes de permitir o envio da solicitação ao banco de dados.
   const validarCampos = () => {
     if (
-      dataToInsert.CPF.length !== 11 ||
+      dataToInsert.CPF.length !== 14 ||
       dataToInsert.numeroTelefonico.length !== 14 ||
-      dataToInsert.dataNascimento.length !== 8
+      dataToInsert.dataNascimento.length !== 10
     ) {
       return false;
     }
@@ -125,149 +110,143 @@ export default function RegisterPage() {
   // Retorna o componente do Formulario de Usuário
   return (
     <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
-      <ContentWrapper
-        style={{
-          flex: 1,
-          padding: 40,
-        }}
-      >
-        <View style={styles.content}>
-          <Image
-            source={logo}
-            style={{
-              width: 60,
-              height: 60,
-              marginBottom: 20,
-            }}
-          />
+      <ScrollView>
+        <ContentWrapper
+          style={{
+            flex: 1,
+            padding: 40,
+          }}
+        >
+          <View style={styles.content}>
+            <Image
+              source={logo}
+              style={{
+                width: 60,
+                height: 60,
+                marginBottom: 20,
+              }}
+            />
+            <Input
+              value={dataToInsert.nome}
+              onChangeText={(text) => handleChange("nome", text)}
+              placeholder="Nome"
+              autoCompleteType="name"
+              secureTextEntry={false}
+            />
+            <Input
+              value={dataToInsert.CPF}
+              onChangeText={(text) => formatCpf(text, (formattedText) => handleChange("CPF", formattedText))}
+              placeholder="CPF (somente números)"
+              keyboardType="numeric"
+              maxLength={14}
+              autoCompleteType="off"
+              secureTextEntry={false}
+            />
+            <Input
+              value={dataToInsert.numeroTelefonico}
+              onChangeText={(text) => {
+                if (/^\d+$/.test(text) || text === "") {
+                  handleChange("numeroTelefonico", text);
+                }
+              }}
+              placeholder="Número Telefônico (DDD + número)"
+              keyboardType="numeric"
+              maxLength={14}
+              autoCompleteType="tel"
+              secureTextEntry={false}
+            />
+            <Input
+              value={dataToInsert.dataNascimento}
+              onChangeText={(text) => formatInputDate(text, (formattedText) => handleChange("dataNascimento", formattedText))}
+              placeholder="Data de Nascimento (DDMMYYYY)"
+              keyboardType="numeric"
+              maxLength={10}
+              autoCompleteType="off"
+              secureTextEntry={false}
+            />
           <Input
-            value={dataToInsert.nome}
-            onChangeText={(text) => handleChange("nome", text)}
-            placeholder="Nome"
-            autoCompleteType="name"
-            secureTextEntry={false}
-          />
-          <Input
-            value={dataToInsert.CPF}
-            onChangeText={(text) => {
-              if (/^\d+$/.test(text) || text === "") {
-                handleChange("CPF", text);
-              }
-            }}
-            placeholder="CPF (somente números)"
+            value={dataToInsert.CEP}
+            onChangeText={(text) => handleChange("CEP", text)}
             keyboardType="numeric"
-            maxLength={11}
-            autoCompleteType="off"
-            secureTextEntry={false}
-          />
-          <Input
-            value={dataToInsert.numeroTelefonico}
-            onChangeText={(text) => {
-              if (/^\d+$/.test(text) || text === "") {
-                handleChange("numeroTelefonico", text);
-              }
-            }}
-            placeholder="Número Telefônico (DDD + número)"
-            keyboardType="numeric"
-            maxLength={14}
-            autoCompleteType="tel"
-            secureTextEntry={false}
-          />
-          <Input
-            value={dataToInsert.dataNascimento}
-            onChangeText={(text) => {
-              if (/^\d+$/.test(text) || text === "") {
-                handleChange("dataNascimento", text);
-              }
-            }}
-            placeholder="Data de Nascimento (DDMMYYYY)"
-            keyboardType="numeric"
-            maxLength={8}
-            autoCompleteType="off"
-            secureTextEntry={false}
-          />
-        <Input
-          value={dataToInsert.CEP}
-          onChangeText={(text) => handleChange("CEP", text)}
-          keyboardType="numeric"
-          placeholder="CEP"
-          autoCompleteType="street-address"
-          secureTextEntry={false}
-        />
-          <Input
-            value={dataToInsert.endereco}
-            onChangeText={(text) => handleChange("endereco", text)}
-            placeholder="Endereco"
+            placeholder="CEP"
             autoCompleteType="street-address"
             secureTextEntry={false}
           />
-        <Input
-          value={dataToInsert.numero}
-          onChangeText={(text) => handleChange("numero", text)}
-          keyboardType="numeric"
-          placeholder="Numero"
-          autoCompleteType="number"
-          secureTextEntry={false}
-        />
-        <Input
-          value={dataToInsert.bairro}
-          onChangeText={(text) => handleChange("bairro", text)}
-          placeholder="Bairro"
-          autoCompleteType="off"
-          secureTextEntry={false}
-        />
-        <Input
-          value={dataToInsert.cidade}
-          onChangeText={(text) => handleChange("cidade", text)}
-          placeholder="Cidade"
-          autoCompleteType="off"
-          secureTextEntry={false}
-        />
-        <Input
-          value={dataToInsert.UF}
-          onChangeText={(text) => handleChange("UF", text)}
-          placeholder="UF"
-          autoCompleteType="off"
-          secureTextEntry={false}
-        />
+            <Input
+              value={dataToInsert.endereco}
+              onChangeText={(text) => handleChange("endereco", text)}
+              placeholder="Endereco"
+              autoCompleteType="street-address"
+              secureTextEntry={false}
+            />
           <Input
-            value={dataToInsert.email}
-            onChangeText={(text) => handleChange("email", text)}
-            placeholder="Email"
-            autoCompleteType="email"
+            value={dataToInsert.numero}
+            onChangeText={(text) => handleChange("numero", text)}
+            keyboardType="numeric"
+            placeholder="Numero"
+            autoCompleteType="number"
             secureTextEntry={false}
           />
           <Input
-            value={dataToInsert.senha}
-            onChangeText={(text) => handleChange("senha", text)}
-            placeholder="Senha"
-            secureTextEntry={!dataToInsert.mostrarSenha}
-            autoCompleteType="password"
-            icon={
-              <Pressable
-                onPress={() => {
-                  setDataToInsert({
-                    ...dataToInsert,
-                    mostrarSenha: !dataToInsert.mostrarSenha,
-                  });
-                }}
-              >
-                {dataToInsert.mostrarSenha ? (
-                  <Icon variant="eye" color="#859A95" />
-                ) : (
-                  <Icon variant="eyeOff" color="#859A95" />
-                )}
-              </Pressable>
-            }
+            value={dataToInsert.bairro}
+            onChangeText={(text) => handleChange("bairro", text)}
+            placeholder="Bairro"
+            autoCompleteType="off"
+            secureTextEntry={false}
           />
+          <Input
+            value={dataToInsert.cidade}
+            onChangeText={(text) => handleChange("cidade", text)}
+            placeholder="Cidade"
+            autoCompleteType="off"
+            secureTextEntry={false}
+          />
+          <Input
+            value={dataToInsert.UF}
+            onChangeText={(text) => handleChange("UF", text)}
+            placeholder="UF"
+            autoCompleteType="off"
+            secureTextEntry={false}
+          />
+            <Input
+              value={dataToInsert.email}
+              onChangeText={(text) => handleChange("email", text)}
+              placeholder="Email"
+              autoCompleteType="email"
+              secureTextEntry={false}
+            />
+            <Input
+              value={dataToInsert.senha}
+              onChangeText={(text) => handleChange("senha", text)}
+              placeholder="Senha"
+              secureTextEntry={!dataToInsert.mostrarSenha}
+              autoCompleteType="password"
+              icon={
+                <Pressable
+                  onPress={() => {
+                    setDataToInsert({
+                      ...dataToInsert,
+                      mostrarSenha: !dataToInsert.mostrarSenha,
+                    });
+                  }}
+                >
+                  {dataToInsert.mostrarSenha ? (
+                    <Icon variant="eye" color="#859A95" />
+                  ) : (
+                    <Icon variant="eyeOff" color="#859A95" />
+                  )}
+                </Pressable>
+              }
+            />
 
-          <Text style={styles.mensagem}>{mensagem}</Text>
-        </View>
-        <View style={styles.footerWrapper}>
-          <Button label="Voltar" width="40%" onPress={() => router.push("/")} />
-          <Button label="Salvar" width="40%" onPress={handleSubmit} />
-        </View>
-      </ContentWrapper>
+            <Text style={styles.mensagem}>{mensagem}</Text>
+          </View>
+          <View style={styles.footerWrapper}>
+            <Button label="Voltar" width="40%" onPress={() => router.push("/")} />
+            <Button label="Salvar" width="40%" onPress={handleSubmit} />
+          </View>
+        </ContentWrapper>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }

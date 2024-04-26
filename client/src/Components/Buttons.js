@@ -27,17 +27,14 @@ const ResetPasswordButton = () => {
   );
 };
 
-/*
 const HomePageButton = ({ navigation }) => {
-  const handleNavigation = () => navigation.navigate('HomePage');
-
   return (
-    <TouchableOpacity style={styles.button} onPress={handleNavigation}>
-      <Text style={styles.buttonText}>Home Page</Text>
-    </TouchableOpacity>
+    <Button
+      title='Página Inicial'
+      onPress={() => router.push('/index')}
+    />
   );
 };
-*/
 
 const NewRequestButton = () => {
   return (

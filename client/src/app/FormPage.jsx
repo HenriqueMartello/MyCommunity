@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, Alert } from "react-native";
-import { handleFormSubmit, formatCpf } from "./helpers";
+import { handleFormSubmit, formatCpf } from "../Components/helpers";
 import { HomePageButton, LoginButton } from "../Components/Buttons";
 import { useRouter } from "expo-router";
 
