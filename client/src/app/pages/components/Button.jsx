@@ -25,7 +25,11 @@ export const Button = ({ label, onPress, disabled, width }) => {
     <Pressable style={{ width: width }} onPress={onPress}>
       <ShadowStyle>
         <View style={{ borderRadius: 10 }}>
-          <Pressable style={button.default} disabled={disabled}>
+          <Pressable
+            style={button.default}
+            disabled={disabled}
+            onPress={onPress}
+          >
             <Text style={button.label}>{label}</Text>
           </Pressable>
         </View>

@@ -36,8 +36,6 @@ export const LoginPage = () => {
         justifyContent: "flex-end",
       }}
     >
-      {/* fix - maybe put safe Area View */}
-
       <View style={styles.content}>
         <Image
           source={logo}
