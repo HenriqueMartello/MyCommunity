@@ -10,42 +10,39 @@ import { useRouter } from "expo-router";
 import { ContentWrapper } from "./pages/components/ContentWrapper";
 import { Icon } from "./pages/components/Icon";
 
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { backendUrl } from '../Components/GlobalVariables';
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { backendUrl } from "../Components/GlobalVariables";
 
 const router = useRouter();
 
 // Função para Tratar Login
 const handleLogin = (cpf, password) => {
-  
   if (!cpf || !password) {
-    Alert.alert('Erro', 'CPF e senha são obrigatórios.');
-    console.log('CPF e senha são obrigatórios.')
+    Alert.alert("Erro", "CPF e senha são obrigatórios.");
+    console.log("CPF e senha são obrigatórios.");
     return;
   }
 
-  cpfTratado = cpf.replace(/[^\d]/g, '');
+  cpfTratado = cpf.replace(/[^\d]/g, "");
 
   const userData = {
     CPF: cpfTratado,
-    senha: password
+    senha: password,
   };
-  axios
-  .post(`${backendUrl}login`, userData)
-  .then(res => {
+  axios.post(`${backendUrl}login`, userData).then((res) => {
     console.log(res.data.status);
     switch (res.data.status) {
       case "IncorrectInformation":
         Alert.alert("Usuário ou senha não estão corretos!");
-      break;
+        break;
       case "OK":
         Alert.alert("Login realizado com sucesso!");
         // Salvar token JWT, para manter usuário
         AsyncStorage.setItem("token", res.data.data);
         AsyncStorage.setItem("usuarioLogado", JSON.stringify(true));
         router.push("/System");
-      break;
+        break;
       default:
         Alert.alert("Erro no login!");
     }
@@ -75,7 +72,6 @@ export const LoginPage = () => {
         justifyContent: "flex-end",
       }}
     >
-
       <View style={styles.content}>
         <Image
           source={logo}
