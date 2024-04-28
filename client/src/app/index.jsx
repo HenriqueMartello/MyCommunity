@@ -24,12 +24,4 @@ export default function Home() {
     </>
 
   )
-
-  /*
-  if (usuarioLogado) {
-    router.push("/System");
-  } 
-
-  return <LoginPage />;
-  */
 }

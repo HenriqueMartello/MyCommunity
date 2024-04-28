@@ -49,26 +49,18 @@ const RequestPage = () => {
     axios
       .post(`${backendUrl}criarSolicitacao`, solicData)
       .then((res) => {
-        console.log(res.data.status);
         switch (res.data.status) {
           case "TokenInvalido":
             Alert.alert("Erro na validação da sua autenticação! Deslogue do aplicativo e realize o login novamente!")
           break
           case "SolicitacaoRegistrada":
             Alert.alert("Solicitação registrada com sucesso!")
-            // Limpar campos solicitação caso OK
-            // Colocar demais
-            setSelectedItem('');
-            setEndereco('');
-            setDescricao('');
-            setMediaUri(null);
+            router.back();
           break
           default: 
             Alert.alert("Erro no registro da solicitação!")
         } 
       })
-
-    
   };
 
   const handleItemSelect = (item) => {
