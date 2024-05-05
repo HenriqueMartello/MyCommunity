@@ -10,6 +10,8 @@ export const Input = ({
   autoCompleteType,
   maxLength,
   icon,
+  height,
+  multiline,
 }) => {
   const styles = StyleSheet.create({
     inputWrapper: {
@@ -18,13 +20,16 @@ export const Input = ({
       borderWidth: 1,
       backgroundColor: "#EDEDED",
       borderRadius: 10,
+      paddingVertical: 10,
       justifyContent: "center",
+      height: height ? height : 50,
     },
     input: {
       height: "100%",
       position: "relative",
       zIndex: 2,
-      padding: 10,
+      paddingHorizontal: 10,
+      // lineHeight: multiline ? 10 : 16,
     },
     iconWrapper: {
       position: "absolute",
@@ -48,11 +53,14 @@ export const Input = ({
             style={styles.input}
             value={value}
             onChangeText={onChangeText}
-            secureTextEntry={secureTextEntry}
+            secureTextEntry={!!secureTextEntry}
             keyboardType={keyboardType}
             autoCompleteType={autoCompleteType}
             maxLength={maxLength}
+            multiline={!!multiline}
+            numberOfLines={5}
           />
+
           {!value && <Text style={styles.placeholder}>{placeholder}</Text>}
 
           {!!icon && <View style={styles.iconWrapper}>{icon}</View>}

@@ -29,10 +29,7 @@ const ResetPasswordButton = () => {
 
 const HomePageButton = ({ navigation }) => {
   return (
-    <Button
-      title='Página Inicial'
-      onPress={() => router.push('/index')}
-    />
+    <Button title="Página Inicial" onPress={() => router.push("/index")} />
   );
 };
 

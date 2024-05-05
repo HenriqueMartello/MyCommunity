@@ -15,7 +15,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { backendUrl } from "../Components/GlobalVariables";
 
 const router = useRouter();
-
 // Função para Tratar Login
 const handleLogin = (cpf, password) => {
   if (!cpf || !password) {
@@ -51,11 +50,11 @@ const handleLogin = (cpf, password) => {
 
 // Página de Login
 export const LoginPage = () => {
+  const router = useRouter();
+
   const [cpf, setCpf] = useState("");
   const [password, setPassword] = useState("");
   const [visiblePassword, setVisiblePassword] = useState(false);
-
-  const router = useRouter();
 
   const handleLoginPress = () => {
     try {
