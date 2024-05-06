@@ -16,19 +16,23 @@ const router = useRouter();
 const SystemPage = ({ navigation }) => {
   const [profile, setProfile] = useState();
 
-  async function obterUsuario() {
-    // Token recebido da solicitação de login, que foi salvo localmente
-    const token = await AsyncStorage.getItem("token");
-    axios.post(`${backendUrl}usuarioInfo`, { token: token }).then((res) => {
-      console.log(res.data);
-      setProfile(res.data.data);
-    });
-  }
-
   useEffect(() => {
+    const obterUsuario = async () => {
+      // Token recebido da solicitação de login, que foi salvo localmente
+      const token = await AsyncStorage.getItem("token");
+      axios
+        .post(`${backendUrl}usuarioInfo`, { token: token })
+        .then((res) => {
+          const userData = res.data.data;
+          //console.log("Dados do usuário:", userData);
+          setProfile(userData);
+        })
+        .catch((error) => {
+          console.error("Erro ao obter informações do usuário:", error);
+        });
+    };
     obterUsuario();
   }, []);
-
   const Item = ({ label, path }) => {
     return (
       <ShadowStyle>

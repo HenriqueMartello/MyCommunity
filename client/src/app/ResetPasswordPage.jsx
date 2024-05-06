@@ -25,7 +25,6 @@ const ResetPasswordPage = () => {
       title='Voltar'
       onPress={()=> router.push("/")}
       />
-      <HomePageButton></HomePageButton>
     </View>
   );
 };

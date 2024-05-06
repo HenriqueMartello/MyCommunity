@@ -10,6 +10,7 @@ export default function Layout() {
           <Stack.Screen name="RegisterPage" options={{ title: "Cadastro de Usuário" }} />
           <Stack.Screen name="System" options={{ title: "Sistema" }} />
           <Stack.Screen name="Development" options={{ title: "Development" }} />
+          <Stack.Screen name="ResetPasswordPage" options={{ title: "Esqueceu a senha" }} />
       </Stack>
     );
 }

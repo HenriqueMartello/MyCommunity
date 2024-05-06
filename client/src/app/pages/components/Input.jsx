@@ -59,6 +59,7 @@ export const Input = ({
             maxLength={maxLength}
             multiline={!!multiline}
             numberOfLines={5}
+            onPress={() => Keyboard.dismiss()}
           />
 
           {!value && <Text style={styles.placeholder}>{placeholder}</Text>}
