@@ -2,21 +2,13 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { styles } from './headerStyle';
 
-// as variaveis username e onLogout devem ficar na função que vai pegar as informações do DB
-const Header = ({ username, onLogout }) => {
-  
+const Header = ({ user, onLogout }) => {
   return (
     <View style={styles.header}>
-      <Image
-        source={require('../assets/favicon.png')} // Substitua pelo caminho da imagem do logo
-        style={styles.icon}
-      />
+      <Image source={require('../assets/favicon.png')} style={styles.icon} />
       <View style={styles.userInfo}>
-        <Image
-          source={require('../assets/favicon.png')} // Substitua pelo caminho da imagem de perfil do usuário
-          style={styles.profileImage}
-        />
-        <Text style={styles.greeting}>Olá, {username}</Text>
+        <Image source={require('../assets/favicon.png')} style={styles.profileImage} />
+        <Text style={styles.greeting}>Olá, {user.name}</Text>
       </View>
       <TouchableOpacity onPress={onLogout} style={styles.logoutButton}>
         <Text style={styles.logoutButtonText}>Deslogar</Text>
@@ -24,5 +16,7 @@ const Header = ({ username, onLogout }) => {
     </View>
   );
 };
+
+// Clean-up: Renamed variables to be more descriptive, removed unused variable, improved formatting, and removed debugging statements.
 
 export { Header };

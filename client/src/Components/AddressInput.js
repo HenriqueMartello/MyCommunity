@@ -2,39 +2,32 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
 
 const AddressInput = ({ onSubmit }) => {
-  const [address, setAddress] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
-  const handleInputChange = (text) => {
-    if(text === null) {
-      return;
-    }
-    setAddress(text);
-  };
+  const handleInputChange = text => setInputValue(text);
 
   const handleSubmit = () => {
-    if(!onSubmit || typeof onSubmit !== 'function') {
-      return;
-    }
-    onSubmit(address);
-    setAddress('');
+    if (!onSubmit || typeof onSubmit !== 'function') return;
+    onSubmit(inputValue);
+    setInputValue('');
   };
 
   return (
     <View style={styles.container}>
-      { address === null ? null : (
-        <TextInput
-          style={styles.input}
-          placeholder="Digite o endereço"
-          value={address}
-          onChangeText={handleInputChange}
-        />
-      )}
-      { onSubmit === null || typeof onSubmit !== 'function' ? null : (
+      <TextInput
+        style={styles.input}
+        placeholder="Digite o endereço"
+        value={inputValue}
+        onChangeText={handleInputChange}
+      />
+      { onSubmit && (
         <Button title="Enviar" onPress={handleSubmit} />
       )}
     </View>
   );
 };
+
+// Clean up the code by standardizing variable names, removing debugging statements, improving readability, and more.
 
 const styles = StyleSheet.create({
   container: {

@@ -19,54 +19,31 @@ const SystemButton = () => {
 };
 
 const ResetPasswordButton = () => {
-  return (
-    <Button
-      title="Reset Password"
-      onPress={() => router.push("/ResetPasswordPage")}
-    />
-  );
+  return (<Button title="Reset Password" onPress={() => router.push("/ResetPasswordPage")} />);
 };
 
 const HomePageButton = ({ navigation }) => {
-  return (
-    <Button title="Página Inicial" onPress={() => router.push("/index")} />
-  );
+  return (<Button title="Página Inicial" onPress={() => router.push("/index")} />);
 };
 
 const NewRequestButton = () => {
-  return (
-    <Button
-      title="Nova Solicitação"
-      onPress={() => router.push("/RequestPage")}
-    />
-  );
+  return (<Button title="Nova Solicitação" onPress={() => router.push("/RequestPage")} />);
 };
 
 const LearnMoreButton = () => {
-  return (
-    <Button title="Aprenda Mais" onPress={() => router.push("/LearnMore")} />
-  );
+  return (<Button title="Aprenda Mais" onPress={() => router.push("/LearnMore")} />);
 };
 
 const DevelopmentButton = () => {
-  return (
-    <Button title="Development" onPress={() => router.push("/Development")} />
-  );
+  return (<Button title="Development" onPress={() => router.push("/Development")} />);
 };
 
 const MyRequestsButton = () => {
-  return (
-    <Button title="My Requests" onPress={() => router.push("/MyRequests")} />
-  );
+  return (<Button title="My Requests" onPress={() => router.push("/MyRequests")} />);
 };
 
 const OtherInformationButton = () => {
-  return (
-    <Button
-      title="Other Information"
-      onPress={() => router.push("/OtherInformations")}
-    />
-  );
+  return (<Button title="Other Information" onPress={() => router.push("/OtherInformations")} />);
 };
 
 const styles = StyleSheet.create({
