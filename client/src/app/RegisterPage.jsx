@@ -23,7 +23,6 @@ import { formatCpf, formatInputDate } from '../Components/helpers';
 export default function RegisterPage() {
   const router = useRouter();
 
-  
   // Variável contento as informações necessárias para o envio da solicitação (campos do banco de dados)
   const [dataToInsert, setDataToInsert] = useState({
     nome: "",

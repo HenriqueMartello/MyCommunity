@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import MediaPicker from "../Components/MediaPicker";
 import DropdownMenu from "../Components/DropdownMenu";
-import { Header } from "../Components/Header";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { backendUrl } from "../Components/GlobalVariables";

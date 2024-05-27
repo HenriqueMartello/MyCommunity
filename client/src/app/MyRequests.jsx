@@ -131,32 +131,20 @@ const MyRequests = () => {
             fontSize: 16,
           }}
         >
-          Tipo de serviço: {selectedSolicitacao.tipoServico}
+          Solicitação #{selectedSolicitacao.idSolicitacao}
         </Text>
 
         <View style={{ padding: 10, gap: 5 }}>
-          <SolicitaçãoWrapper
-            label="Data"
-            description={selectedSolicitacao.data}
-          />
-          <SolicitaçãoWrapper
-            label="Solicitação"
-            description={selectedSolicitacao.tipoServico}
-          />
-
+          <SolicitaçãoWrapper label="Tipo de Serviço" description={selectedSolicitacao.tipoServico} />
+          <SolicitaçãoWrapper label="Data" description={selectedSolicitacao.data} />
+          <SolicitaçãoWrapper label="Solicitação" description={selectedSolicitacao.tipoServico}/>
           <SolicitaçãoWrapper label="CEP" description={endereco.cep} />
-          <SolicitaçãoWrapper
-            label="Endereco"
-            description={endereco.endereco}
-          />
+          <SolicitaçãoWrapper label="Endereco" description={endereco.endereco} />
           <SolicitaçãoWrapper label="Número" description={endereco.numero} />
           <SolicitaçãoWrapper label="Bairro" description={endereco.bairro} />
           <SolicitaçãoWrapper label="Cidade" description={endereco.cidade} />
           <SolicitaçãoWrapper label="UF" description={endereco.UF} />
-          <SolicitaçãoWrapper
-            label="Descrição"
-            description={selectedSolicitacao.descricao}
-          />
+          <SolicitaçãoWrapper label="Descrição" description={selectedSolicitacao.descricao}/>
 
           <View
             style={{
@@ -261,7 +249,7 @@ const MyRequests = () => {
                           fontSize: 16,
                         }}
                       >
-                        Tipo de serviço: {solicitacao.tipoServico}
+                        Solicitação #{solicitacao._id}
                       </Text>
 
                       <View

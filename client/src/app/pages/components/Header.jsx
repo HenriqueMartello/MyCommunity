@@ -41,8 +41,6 @@ export const Header = ({ name }) => {
     },
   });
 
-  const handleLogout = () => deslogarUsuario();
-
   const handleBackPress = () => {
     Alert.alert(
       "Sair do Aplicativo",
@@ -80,7 +78,9 @@ export const Header = ({ name }) => {
       />
 
       <View style={styles.headerWrapper}>
-        <Text style={styles.text}>Olá, {name}!</Text>
+        <Pressable onPress={() => router.push("/UserInfo")}>
+          <Text style={styles.text}>Olá, {name}!</Text>
+        </Pressable>
         <Pressable style={styles.presseable} onPress={handleBackPress}>
           <Text style={styles.logOutLabel}>Sair</Text>
         </Pressable>

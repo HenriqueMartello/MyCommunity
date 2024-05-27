@@ -16,7 +16,7 @@ const OtherInformations = () => {
             <Text>Samu: 00 000 000</Text>
             <Button
             title='Voltar'
-            onPress={()=> router.push("/")}
+            onPress={()=> router.push("System")}
             />
         </View>
     )
