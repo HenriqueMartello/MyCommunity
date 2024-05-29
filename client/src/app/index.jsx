@@ -4,7 +4,7 @@ import { LoginPage } from "./LoginPage";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SystemPage from "./System";
 
-export default function Home() {
+export default function App() {
 
   const router = useRouter();
   const [usuarioLogado, setUsuarioLogado] = useState(false);
