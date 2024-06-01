@@ -1,31 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { View, Text, Button } from "react-native";
-import { Header } from "../Components/Header";
-import Spoiler from "../Components/Spoiler";
-import { useRouter } from 'expo-router'
+import { Header } from "../app/pages/components/Header";
+import { useRouter } from "expo-router";
+import { backendUrl } from "../Components/GlobalVariables";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ContentWrapper } from "./pages/components/ContentWrapper";
 
-const router = useRouter();
-const LearnMore = () => {
+const LearnMore = ({ navigation }) => {
+  const router = useRouter();
+  const [profile, setProfile] = useState(null);
 
-  const handleBackButtonPress = () => {
-    navigation.goBack();
+  const obterUsuario = async () => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      if (!token) return;
+      const response = await axios.post(`${backendUrl}usuarioInfo`, { token });
+      const userData = response.data.data;
+      setProfile(userData);
+    } catch (error) {
+      console.error("Erro ao obter informações do usuário:", error);
+    }
   };
 
+  useEffect(() => {
+    obterUsuario();
+  }, []);
+
+  if (!profile) {
+    return (
+      <ContentWrapper>
+        <Text>Carregando...</Text>
+      </ContentWrapper>
+    );
+  }
+
   return (
-    <View>
-      <Header username="User" onLogout={handleBackButtonPress} />
-      <Text>Learn more</Text>
-      <Spoiler title="Lixo Reciclável" text="This is the hidden text that will be revealed when the button is clicked." />
-      <Spoiler title="Lixo Não Reciclável" text="This is the hidden text that will be revealed when the button is clicked." />
-      <Spoiler title="Vidros Quebrados" text="This is the hidden text that will be revealed when the button is clicked." />
-      <Spoiler title="Restos de Materiais de Construção" text="This is the hidden text that will be revealed when the button is clicked." />
-      <Spoiler title="Lixo Eletrônico" text="This is the hidden text that will be revealed when the button is clicked." />
-      <Spoiler title="Ciclo do Lixo" text="This is the hidden text that will be revealed when the button is clicked." />
-      <Button
-      title='Voltar'
-      onPress={()=> router.push("/")}
-      />
-    </View>
+    <ContentWrapper>
+      <View>
+        <Header name={profile?.nome} />
+        <Text>Aprenda Mais</Text>
+      </View>
+      <View>
+        <Button label="Voltar" width="30%" onPress={() => router.back()} />
+      </View>
+    </ContentWrapper>
   );
 };
 
