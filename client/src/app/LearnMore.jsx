@@ -28,9 +28,9 @@ const LearnMore = () => {
 
   if (!profile) {
     return (
-      <ContentWrapper>
-        <Text>Carregando...</Text>
-      </ContentWrapper>
+      <View style={styles.container}>
+        <Header title="APRENDA MAIS" />
+      </View>
     );
   }
 
