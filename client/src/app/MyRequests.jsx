@@ -255,7 +255,7 @@ const MyRequests = () => {
                           style={[
                             styles.contentWrapper,
                             {
-                              maxHeight: 100,
+                              maxHeight: 105,
                               overflow: "hidden",
                             },
                           ]}

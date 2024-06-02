@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   label: {
     textAlign: "center",
     fontSize: 22,
-    fontWeight: 600,
+    fontWeight: "600",
     color: "#397688",
   },
   content: {
@@ -62,6 +62,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: 8,
     fontSize: 15,
-    fontWeight: 600,
+    fontWeight: "600",
   },
 });

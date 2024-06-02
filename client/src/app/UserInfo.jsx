@@ -42,8 +42,8 @@ const UserDetails = () => {
     setIsEditing(true);
   };
 
+  // Função para enviar dados editados ao backend
   const handleSavePress = () => {
-    // Função para enviar dados editados ao backend
     enviarDadosEditados(editedProfile);
   };
 
@@ -148,7 +148,7 @@ const UserDetails = () => {
                 onChangeText={handlePhoneNumberChange}
                 placeholder="Número telefônico"
                 keyboardType="numeric"
-                maxLength={15} // Ajuste o valor conforme necessário
+                maxLength={15}
               />
             </View>
             <Button label="Salvar" onPress={handleSavePress} />
