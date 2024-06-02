@@ -222,8 +222,9 @@ const MyRequests = () => {
             }}
           >
             {isLoading ? (
-              Array.from({ length: 3 }, () => (
+              Array.from({ length: 3 }, (i) => (
                 <View
+                  key={i}
                   style={{
                     width: "100%",
                     height: 170,
