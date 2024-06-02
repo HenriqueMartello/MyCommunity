@@ -1,90 +1,53 @@
-import {
-  Alert,
-  BackHandler,
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import logo from "./../../../assets/logo.png";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import arrowLeft from "./../../../assets/arrow-left.png";
 import { useRouter } from "expo-router";
 
-export const Header = ({ name }) => {
+export const Header = ({ title }) => {
   const router = useRouter();
 
-  const styles = StyleSheet.create({
-    text: {
-      color: "#397688",
-      fontSize: 19,
-      fontWeight: "700",
-    },
-    headerWrapper: {
-      flexDirection: "row",
-      gap: 10,
-      alignItems: "center",
-    },
-    presseable: {
-      backgroundColor: "#397688",
-      borderRadius: 5,
-      paddingHorizontal: 8,
-      paddingVertical: 5,
-      justifyContent: "center",
-    },
-    logOutLabel: {
-      alignSelf: "center",
-      color: "white",
-      lineHeight: 15,
-      fontSize: 15,
-      fontWeight: "600",
-    },
-  });
-
-  const handleBackPress = () => {
-    Alert.alert(
-      "Sair do Aplicativo",
-      "Você tem certeza que deseja sair do aplicativo?",
-      [
-        {
-          text: "Cancelar",
-          onePress: () => null,
-          style: "cancel",
-        },
-        {
-          text: "Sair",
-          onPress: () => deslogarUsuario(),
-        },
-      ]
-    );
-    return true;
-  };
-
-  function deslogarUsuario() {
-    AsyncStorage.setItem("usuarioLogado", "");
-    AsyncStorage.setItem("token", "");
-    router.push("/");
-  }
-
   return (
-    <View style={{ paddingTop: 20, width: "100%", alignItems: "center" }}>
-      <Image
-        source={logo}
-        style={{
-          width: 70,
-          height: 70,
-          marginBottom: 10,
-        }}
-      />
-
-      <View style={styles.headerWrapper}>
-        <Pressable onPress={() => router.push("/UserInfo")}>
-          <Text style={styles.text}>Olá, {name}!</Text>
-        </Pressable>
-        <Pressable style={styles.presseable} onPress={handleBackPress}>
-          <Text style={styles.logOutLabel}>Sair</Text>
-        </Pressable>
-      </View>
+    <View style={styles.wrapper}>
+      <Pressable onPress={() => router.back()} style={styles.backButton}>
+        <Image source={arrowLeft} style={{ width: 15, height: 15 }} />
+      </Pressable>
+      <Text style={styles.title}>{title}</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  wrapper: {
+    width: "100%",
+    borderBottomLeftRadius: 18,
+    borderBottomEndRadius: 18,
+    paddingTop: 70,
+    paddingBottom: 20,
+    paddingHorizontal: 20,
+    gap: 20,
+    alignContent: "center",
+    backgroundColor: "#397688",
+    marginBottom: -10,
+    zIndex: 10,
+    flexDirection: "row",
+  },
+  backButton: {
+    backgroundColor: "#B2AAAA7f",
+    borderRadius: 50,
+    paddingRight: 9,
+    paddingVertical: 10,
+    paddingLeft: 11,
+  },
+  presseable: {
+    backgroundColor: "#397688",
+    borderRadius: 5,
+    paddingHorizontal: 8,
+    paddingVertical: 5,
+    justifyContent: "center",
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "500",
+    color: "white",
+    alignSelf: "center",
+  },
+});

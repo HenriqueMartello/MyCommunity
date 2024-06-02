@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import down from "../assets/arrow-down.png";
+import up from "../assets/arrow-up.png";
+
 import {
   View,
   Text,
@@ -7,18 +10,21 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  Pressable,
+  Image,
 } from "react-native";
-import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { backendUrl } from "../Components/GlobalVariables";
 import { ContentWrapper } from "./pages/components/ContentWrapper";
 import { Button } from "./pages/components/Button";
+import { ShadowStyle } from "./pages/components/ShadowStyle";
+import { Header } from "./pages/components/Header";
 
 const MyRequests = () => {
-  const router = useRouter();
   const [token, setToken] = useState("");
   const [solicitacoes, setSolicitacoes] = useState([]);
   const [selectedSolicitacao, setSelectedSolicitacao] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     obterToken();
@@ -38,16 +44,22 @@ const MyRequests = () => {
 
   // Listar todas solicitações com base no usuário logado
   const listarSolicitacoesPorUsuario = () => {
+    setIsLoading(true);
+
     axios
       .post(`${backendUrl}listarSolicitacoes`, { token })
       .then((res) => {
         if (res.data.status === "OK") {
+          setIsLoading(false);
           setSolicitacoes(res.data.data);
         } else {
+          setIsLoading(false);
           Alert.alert("Erro ao listar as solicitações!");
         }
       })
       .catch((error) => {
+        setIsLoading(false);
+
         console.error("Erro na requisição:", error);
         Alert.alert("Erro na requisição. Por favor, tente novamente.");
       });
@@ -115,67 +127,83 @@ const MyRequests = () => {
     );
   };
 
+  const SolicitaçãoWrapper = ({ label, description }) => {
+    return (
+      <View style={{ gap: 3 }}>
+        <Text style={styles.label}>{label}: </Text>
+        <Text style={styles.description}>{description}</Text>
+      </View>
+    );
+  };
+
   const renderSolicitacaoDetails = () => {
     if (!selectedSolicitacao) return null;
 
     const endereco = selectedSolicitacao.endereco;
 
     return (
-      <View style={styles.solicitacaoDetailsContainer}>
-        <Text
-          style={{
-            backgroundColor: "#397688",
-            padding: 10,
-            fontWeight: "700",
-            color: "white",
-            fontSize: 16,
-          }}
-        >
-          Solicitação #{selectedSolicitacao.idSolicitacao}
-        </Text>
+      <ShadowStyle>
+        <Pressable onPress={() => setSelectedSolicitacao(null)}>
+          <View style={styles.solicitacaoContainer}>
+            <Text style={styles.solicitacaoTitle}>
+              Solicitação #{selectedSolicitacao.idSolicitacao}
+            </Text>
 
-        <View style={{ padding: 10, gap: 5 }}>
-          <SolicitaçãoWrapper label="Tipo de Serviço" description={selectedSolicitacao.tipoServico} />
-          <SolicitaçãoWrapper label="Data" description={selectedSolicitacao.data} />
-          <SolicitaçãoWrapper label="Solicitação" description={selectedSolicitacao.tipoServico}/>
-          <SolicitaçãoWrapper label="CEP" description={endereco.cep} />
-          <SolicitaçãoWrapper label="Endereco" description={endereco.endereco} />
-          <SolicitaçãoWrapper label="Número" description={endereco.numero} />
-          <SolicitaçãoWrapper label="Bairro" description={endereco.bairro} />
-          <SolicitaçãoWrapper label="Cidade" description={endereco.cidade} />
-          <SolicitaçãoWrapper label="UF" description={endereco.UF} />
-          <SolicitaçãoWrapper label="Descrição" description={selectedSolicitacao.descricao}/>
+            <View style={styles.contentWrapper}>
+              <SolicitaçãoWrapper
+                label="Tipo de Serviço"
+                description={selectedSolicitacao.tipoServico || "-"}
+              />
+              <SolicitaçãoWrapper
+                label="Data"
+                description={selectedSolicitacao.data || "-"}
+              />
+              <SolicitaçãoWrapper
+                label="Solicitação"
+                description={selectedSolicitacao.tipoServico || "-"}
+              />
+              <SolicitaçãoWrapper
+                label="CEP"
+                description={endereco.cep || "-"}
+              />
+              <SolicitaçãoWrapper
+                label="Endereco"
+                description={endereco.endereco || "-"}
+              />
+              <SolicitaçãoWrapper
+                label="Número"
+                description={endereco.numero || "-"}
+              />
+              <SolicitaçãoWrapper
+                label="Bairro"
+                description={endereco.bairro || "-"}
+              />
+              <SolicitaçãoWrapper
+                label="Cidade"
+                description={endereco.cidade || "-"}
+              />
+              <SolicitaçãoWrapper label="UF" description={endereco.UF || "-"} />
+              <SolicitaçãoWrapper
+                label="Descrição"
+                description={selectedSolicitacao.descricao || "-"}
+              />
+              <View style={styles.footer}>
+                <Button
+                  label="Deletar"
+                  onPress={handleDeleteSolicitacao}
+                  color={"#CA0909"}
+                  size="sm"
+                  width={70}
+                />
 
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingTop: 15,
-            }}
-          >
-            <Button
-              label="Deletar Solicitação"
-              onPress={handleDeleteSolicitacao}
-              color={"red"}
-              size="sm"
-            />
-            <Button
-              label="Voltar"
-              size="sm"
-              onPress={() => setSelectedSolicitacao(null)}
-            />
+                <Pressable onPress={() => setSelectedSolicitacao(null)}>
+                  <Image source={up} style={styles.arrow} />
+                </Pressable>
+              </View>
+            </View>
           </View>
-        </View>
-      </View>
-    );
-  };
-
-  const SolicitaçãoWrapper = ({ label, description }) => {
-    return (
-      <View style={{}}>
-        <Text style={{ fontSize: 13, fontWeight: "normal" }}>{label}: </Text>
-        <Text style={{ fontWeight: "600" }}>{description}</Text>
-      </View>
+        </Pressable>
+      </ShadowStyle>
     );
   };
 
@@ -183,37 +211,9 @@ const MyRequests = () => {
   return (
     <>
       <ContentWrapper style={styles.container}>
-        <View
-          style={{
-            width: "100%",
-            borderTopLeftRadius: 18,
-            borderTopEndRadius: 18,
-            paddingTop: 15,
-            paddingBottom: 20,
-            alignContent: "center",
-            backgroundColor: "#397688",
-            marginBottom: -10,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 28,
-              fontWeight: "500",
-              color: "white",
-              alignSelf: "center",
-            }}
-          >
-            Minhas Solicitações
-          </Text>
-        </View>
+        <Header title="MINHAS SOLICITAÇÕES" />
 
-        <ScrollView
-          style={{
-            backgroundColor: "white",
-            width: "100%",
-            borderRadius: 15,
-          }}
-        >
+        <ScrollView style={styles.scrollView}>
           <View
             style={{
               gap: 15,
@@ -221,55 +221,66 @@ const MyRequests = () => {
               paddingVertical: 25,
             }}
           >
-            {!selectedSolicitacao ? (
-              solicitacoes.length === 0 ? (
-                <Text
+            {isLoading ? (
+              Array.from({ length: 3 }, () => (
+                <View
                   style={{
-                    fontWeight: "500",
-                    fontSize: 16,
-                    textAlign: "center",
-                    paddingVertical: 60,
+                    width: "100%",
+                    height: 170,
+                    borderRadius: 8,
+                    opacity: 0.8,
+                    backgroundColor: "#EFEFEF",
                   }}
-                >
+                />
+              ))
+            ) : !selectedSolicitacao ? (
+              solicitacoes.length === 0 ? (
+                <Text style={styles.emptyContent}>
                   Nenhuma solicitação encontrada para este usuário!
                 </Text>
               ) : (
                 solicitacoes.map((solicitacao) => (
-                  <TouchableOpacity
-                    key={solicitacao._id}
-                    onPress={() => handleSolicitacaoClick(solicitacao._id)}
-                  >
-                    <View style={styles.solicitacaoContainer}>
-                      <Text
-                        style={{
-                          backgroundColor: "#397688",
-                          padding: 10,
-                          fontWeight: "700",
-                          color: "white",
-                          fontSize: 16,
-                        }}
-                      >
-                        Solicitação #{solicitacao._id}
-                      </Text>
+                  <ShadowStyle key={solicitacao._id}>
+                    <TouchableOpacity
+                      key={solicitacao._id}
+                      onPress={() => handleSolicitacaoClick(solicitacao._id)}
+                    >
+                      <View style={[styles.solicitacaoContainer]}>
+                        <Text style={styles.solicitacaoTitle}>
+                          Solicitação #{solicitacao._id}
+                        </Text>
 
-                      <View
-                        style={{
-                          padding: 10,
-                          gap: 10,
-                        }}
-                      >
-                        <SolicitaçãoWrapper
-                          label="Data"
-                          description={solicitacao.data}
-                        />
+                        <View
+                          style={[
+                            styles.contentWrapper,
+                            {
+                              maxHeight: 100,
+                              overflow: "hidden",
+                            },
+                          ]}
+                        >
+                          <SolicitaçãoWrapper
+                            label="Data"
+                            description={solicitacao.data || "-"}
+                          />
 
-                        <SolicitaçãoWrapper
-                          label="Descrição"
-                          description={solicitacao.descricao}
+                          <SolicitaçãoWrapper
+                            label="Descrição"
+                            description={solicitacao.descricao || "-"}
+                          />
+                        </View>
+                        <Image
+                          source={down}
+                          style={[
+                            styles.arrow,
+                            {
+                              margin: 10,
+                            },
+                          ]}
                         />
                       </View>
-                    </View>
-                  </TouchableOpacity>
+                    </TouchableOpacity>
+                  </ShadowStyle>
                 ))
               )
             ) : (
@@ -277,14 +288,6 @@ const MyRequests = () => {
             )}
           </View>
         </ScrollView>
-
-        <View style={styles.footerWrapper}>
-          <Button
-            label="Voltar"
-            width="30%"
-            onPress={() => router.push("System")}
-          />
-        </View>
       </ContentWrapper>
     </>
   );
@@ -294,44 +297,51 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 25,
-    paddingTop: 60,
-    paddingBottom: 20,
   },
-  title: {
-    fontSize: 20,
-    marginBottom: 20,
+  scrollView: {
+    backgroundColor: "white",
+    width: "100%",
+    borderRadius: 15,
   },
+  emptyContent: {
+    fontWeight: "500",
+    fontSize: 16,
+    textAlign: "center",
+    paddingVertical: 60,
+  },
+  solicitacaoTitle: {
+    backgroundColor: "#397688",
+    padding: 10,
+    color: "white",
+    fontSize: 16,
+  },
+  contentWrapper: { padding: 10, gap: 15 },
+  arrow: {
+    width: 40,
+    height: 40,
+    alignSelf: "flex-end",
+  },
+  footer: {
+    paddingTop: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  label: {
+    fontSize: 13,
+    fontWeight: "normal",
+    color: "#787878",
+  },
+  description: {
+    fontWeight: "600",
+    color: "#397688",
+  },
+
   solicitacaoContainer: {
     width: "100%",
     borderWidth: 1,
     borderColor: "#397688",
     borderRadius: 5,
-    backgroundColor: "#EDEAEA",
-    minHeight: 155,
-    maxHeight: 155,
-    overflow: "hidden",
-  },
-  solicitacaoTitle: {
-    fontWeight: "bold",
-    marginBottom: 5,
-    textAlign: "left",
-  },
-  solicitacaoDescription: {
-    textAlign: "left",
-    fontWeight: 500,
-    color: "yellow",
-  },
-  solicitacaoDetailsContainer: {
-    borderWidth: 1,
-    borderColor: "#859A95",
-    borderRadius: 5,
-    backgroundColor: "#EDEAEA",
-    paddingBottom: 5,
-  },
-  footerWrapper: {
-    paddingTop: 20,
+    backgroundColor: "#EFEFEF",
   },
 });
 

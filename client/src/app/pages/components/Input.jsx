@@ -12,6 +12,7 @@ export const Input = ({
   icon,
   height,
   multiline,
+  label,
 }) => {
   const styles = StyleSheet.create({
     inputWrapper: {
@@ -47,6 +48,19 @@ export const Input = ({
   });
   return (
     <View style={{ width: "100%" }}>
+      {!!label && (
+        <Text
+          style={{
+            fontWeight: 400,
+            paddingVertical: 3,
+            fontSize: 16,
+            color: "#636262",
+          }}
+        >
+          {label}
+        </Text>
+      )}
+
       <ShadowStyle>
         <View style={[styles.inputWrapper]}>
           <TextInput

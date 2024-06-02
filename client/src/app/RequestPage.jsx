@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {
-  Alert,
-  View,
-  TextInput,
-  StyleSheet,
-  Text,
-  ScrollView,
-} from "react-native";
+import { Alert, View, StyleSheet, Text, ScrollView } from "react-native";
 import MediaPicker from "../Components/MediaPicker";
 import DropdownMenu from "../Components/DropdownMenu";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { backendUrl } from "../Components/GlobalVariables";
-import { ContentWrapper } from "./pages/components/ContentWrapper";
 import { Input } from "./pages/components/Input";
 import { Button } from "./pages/components/Button";
+import { Header } from "./pages/components/Header";
 
 const RequestPage = () => {
   const router = useRouter();
@@ -116,119 +109,99 @@ const RequestPage = () => {
   };
 
   return (
-    <ContentWrapper style={styles.container}>
+    <View style={styles.container}>
+      <Header title="NOVA SOLICITAÇÃO" />
+
       <View
         style={{
-          width: "100%",
-          borderTopLeftRadius: 18,
-          borderTopEndRadius: 18,
-          paddingTop: 15,
-          paddingBottom: 20,
-          alignContent: "center",
-          backgroundColor: "#397688",
-          marginBottom: -10,
+          flex: 1,
+          alignItems: "flex-end",
         }}
       >
-        <Text
+        <ScrollView
           style={{
-            fontSize: 28,
-            fontWeight: "500",
-            color: "white",
-            alignSelf: "center",
+            width: "100%",
           }}
         >
-          Nova Solicitação
-        </Text>
+          <View
+            style={{
+              gap: 10,
+              paddingHorizontal: 20,
+              paddingTop: 25,
+            }}
+          >
+            <Text style={styles.label}>Selecione um item:</Text>
+            <DropdownMenu onSelect={handleItemSelect} value={selectedItem} />
+            <Text style={styles.label}>Endereço:</Text>
+
+            <Input
+              onChangeText={(text) => setEndereco(text)}
+              value={endereco}
+              placeholder="Insira seu endereço"
+              secureTextEntry={false}
+            />
+            <Input
+              onChangeText={(text) => setCEP(text)}
+              value={CEP}
+              keyboardType="numeric"
+              placeholder="Insira seu CEP"
+              secureTextEntry={false}
+            />
+            <Input
+              onChangeText={(text) => setNumero(text)}
+              value={numero}
+              keyboardType="numeric"
+              placeholder="Insira seu número"
+              secureTextEntry={false}
+            />
+            <Input
+              onChangeText={(text) => setBairro(text)}
+              value={bairro}
+              placeholder="Insira seu bairro"
+              secureTextEntry={false}
+            />
+            <Input
+              onChangeText={(text) => setCidade(text)}
+              value={cidade}
+              placeholder="Insira sua cidade"
+              secureTextEntry={false}
+            />
+            <Input
+              onChangeText={(text) => setUF(text)}
+              value={UF}
+              placeholder="Insira seu estado"
+              secureTextEntry={false}
+            />
+            <Text style={styles.label}>Descrição:</Text>
+            <Input
+              multiline={true}
+              placeholder="Digite uma descrição"
+              onChangeText={handledescricaoChange}
+              value={descricao}
+              secureTextEntry={false}
+              height={100}
+            />
+            <MediaPicker onSelect={handleMediaSelect} />
+          </View>
+        </ScrollView>
       </View>
-
-      <ScrollView
-        style={{
-          backgroundColor: "white",
-          width: "100%",
-          borderRadius: 15,
-        }}
-      >
-        <View
-          style={{
-            gap: 10,
-            paddingHorizontal: 20,
-            paddingVertical: 25,
-          }}
-        >
-          <Text style={styles.label}>Selecione um Item:</Text>
-          <DropdownMenu onSelect={handleItemSelect} value={selectedItem} />
-          <Text style={styles.label}>Endereço:</Text>
-
-          <Input
-            onChangeText={(text) => setEndereco(text)}
-            value={endereco}
-            placeholder="Insira seu endereço"
-            secureTextEntry={false}
-          />
-          <Input
-            onChangeText={(text) => setCEP(text)}
-            value={CEP}
-            keyboardType="numeric"
-            placeholder="Insira seu CEP"
-            secureTextEntry={false}
-          />
-          <Input
-            onChangeText={(text) => setNumero(text)}
-            value={numero}
-            keyboardType="numeric"
-            placeholder="Insira seu número"
-            secureTextEntry={false}
-          />
-          <Input
-            onChangeText={(text) => setBairro(text)}
-            value={bairro}
-            placeholder="Insira seu bairro"
-            secureTextEntry={false}
-          />
-          <Input
-            onChangeText={(text) => setCidade(text)}
-            value={cidade}
-            placeholder="Insira sua cidade"
-            secureTextEntry={false}
-          />
-          <Input
-            onChangeText={(text) => setUF(text)}
-            value={UF}
-            placeholder="Insira seu estado"
-            secureTextEntry={false}
-          />
-          <Text style={styles.label}>Descrição:</Text>
-          <Input
-            multiline={true}
-            placeholder="Digite uma descrição"
-            onChangeText={handledescricaoChange}
-            value={descricao}
-            secureTextEntry={false}
-            height={100}
-          />
-          <MediaPicker onSelect={handleMediaSelect} />
-        </View>
-      </ScrollView>
 
       <View style={styles.footerWrapper}>
-        <Button label="Voltar" width="30%" onPress={() => router.back()} />
-        <Button label="Enviar Solicitação" width="65%" onPress={handleSubmit} />
+        <Button label="Enviar solicitação" width="65%" onPress={handleSubmit} />
       </View>
-    </ContentWrapper>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 25,
-    paddingTop: 60,
-    paddingBottom: 20,
   },
   label: {
     fontSize: 16,
     textAlign: "left",
     width: "100%",
+    color: "#787878",
   },
   input: {
     borderWidth: 1,
@@ -238,10 +211,10 @@ const styles = StyleSheet.create({
     height: 100,
   },
   footerWrapper: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    backgroundColor: "white",
+    alignItems: "center",
     width: "100%",
-    paddingTop: 15,
+    padding: 20,
   },
 });
 

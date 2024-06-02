@@ -1,30 +1,38 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
-import { handleResetPassword } from '../Components/helpers';
-import { HomePageButton } from '../Components/Buttons';
-import { useRouter } from 'expo-router'
+import React, { useState } from "react";
+import { View } from "react-native";
+import { handleResetPassword } from "../Components/helpers";
+import { useRouter } from "expo-router";
+import { Header } from "./pages/components/Header";
+import { Input } from "./pages/components/Input";
+import { Button } from "./pages/components/Button";
 
-const router = useRouter();
 const ResetPasswordPage = () => {
-  const [email, setEmail] = useState('');
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', paddingHorizontal: 20 }}>
-      <Text style={{ fontSize: 20, marginBottom: 20 }}>Redefinir Senha</Text>
-      {/* Campo de entrada para o e-mail */}
-      <TextInput
-        style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 10, paddingHorizontal: 10 }}
-        placeholder="Email"
-        value={email}
-        onChangeText={text => setEmail(text)}
-        keyboardType="email-address"
-      />
-      {/* Botão para redefinir a senha */}
-      <Button title="Reset Password" onPress={() => handleResetPassword(email)} />
-      <Button
-      title='Voltar'
-      onPress={()=> router.push("/")}
-      />
+    <View style={{ flex: 1 }}>
+      <Header title="REDEFINIR SENHA" />
+
+      <View style={{ paddingHorizontal: 20, paddingTop: 55, gap: 50 }}>
+        {/* Campo de entrada para o e-mail */}
+
+        <Input
+          label="E-mail"
+          placeholder="Insira seu e-mail"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+          keyboardType="email-address"
+        />
+
+        {/* Botão para redefinir a senha */}
+        <Button
+          size="sm"
+          label="Redefinir senha"
+          onPress={() => handleResetPassword(email)}
+        />
+      </View>
     </View>
   );
 };

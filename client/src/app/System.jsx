@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 import { StyleSheet, Text, Pressable } from "react-native";
-import { Header } from "../app/pages/components/Header";
+import { MainPageHeader } from "./pages/components/MainPageHeader";
 
 import { useRouter } from "expo-router";
 import { backendUrl } from "../Components/GlobalVariables";
@@ -11,10 +11,9 @@ import { useEffect } from "react";
 import { ContentWrapper } from "./pages/components/ContentWrapper";
 import { ShadowStyle } from "./pages/components/ShadowStyle";
 
-const router = useRouter();
-
 const SystemPage = ({ navigation }) => {
   const [profile, setProfile] = useState();
+  const router = useRouter();
 
   useEffect(() => {
     const obterUsuario = async () => {
@@ -56,7 +55,7 @@ const SystemPage = ({ navigation }) => {
         flex: 1,
       }}
     >
-      <Header name={profile?.nome} />
+      <MainPageHeader name={profile?.nome} />
       <Item label="NOVA SOLICITAÇÃO" path="/RequestPage" />
       <Item label="MINHAS SOLICITAÇÕES" path="/MyRequests" />
       <Item label="APRENDA MAIS" path="/LearnMore" />
@@ -67,7 +66,7 @@ const SystemPage = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   optionWrapper: {
-    backgroundColor: "#F4FFFD",
+    backgroundColor: "#F8F8F8",
     width: "100%",
     alignItems: "center",
     borderRadius: 15,
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
     padding: 18,
     color: "#397688",
     fontWeight: "bold",
-    fontSize: 22,
+    fontSize: 20,
     textAlign: "center",
   },
 });
