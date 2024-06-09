@@ -42,8 +42,8 @@ const OtherInformations = () => {
           }}
         >
           <Info label="Bombeiros" number="192" />
-          <Info label="Defesa Civil" number="(54) 98404-0778" />
-          <Info label="Prefeitura" number="(54) 3218-6000" />
+          <Info label="Defesa Civil" number="199" />
+          <Info label="Prefeitura" number="156" />
           <Info label="Polícia Militar" number="190" />
           <Info label="Samu" number="192" />
         </View>
