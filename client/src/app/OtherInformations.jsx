@@ -41,6 +41,7 @@ const OtherInformations = () => {
             paddingVertical: 25,
           }}
         >
+          <Text style={{fontWeight: 500, textAlign: "center", fontSize: 22, color: "#397688"}}> CONTATOS DE EMERGÊNCIA  </Text>
           <Info label="Bombeiros" number="192" />
           <Info label="Defesa Civil" number="199" />
           <Info label="Prefeitura" number="156" />
