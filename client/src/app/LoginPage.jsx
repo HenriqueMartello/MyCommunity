@@ -6,7 +6,7 @@ import image from "../assets/image.png";
 
 import { Input } from "./pages/components/Input";
 import { Button } from "./pages/components/Button";
-import { useRouter } from "expo-router";
+import { useRouter } from "expo-router"; // Supondo que useRouter seja importado corretamente
 import { ContentWrapper } from "./pages/components/ContentWrapper";
 import { Icon } from "./pages/components/Icon";
 
@@ -15,16 +15,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { backendUrl } from "../Components/GlobalVariables";
 
 // Função para Tratar Login
-const handleLogin = (cpf, password) => {
-  const router = useRouter();
-
+const handleLogin = (router, cpf, password) => {
   if (!cpf || !password) {
     Alert.alert("Erro", "CPF e senha são obrigatórios.");
     console.log("CPF e senha são obrigatórios.");
     return;
   }
 
-  cpfTratado = cpf.replace(/[^\d]/g, "");
+  const cpfTratado = cpf.replace(/[^\d]/g, "");
 
   const userData = {
     CPF: cpfTratado,
@@ -51,7 +49,7 @@ const handleLogin = (cpf, password) => {
 
 // Página de Login
 export const LoginPage = () => {
-  const router = useRouter();
+  const router = useRouter(); // Aqui você usa o useRouter corretamente
 
   const [cpf, setCpf] = useState("");
   const [password, setPassword] = useState("");
@@ -59,7 +57,7 @@ export const LoginPage = () => {
 
   const handleLoginPress = () => {
     try {
-      handleLogin(cpf, password);
+      handleLogin(router, cpf, password); // Chame handleLogin passando o router como argumento
     } catch (error) {
       console.error("Error logging in:", error);
       Alert.alert("Error", "Failed to log in.");
@@ -164,3 +162,5 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 });
+
+export default LoginPage;
