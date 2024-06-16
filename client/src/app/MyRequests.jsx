@@ -42,20 +42,6 @@ const MyRequests = () => {
     setToken(userToken);
   }
 
-  // Definir cor dos chamados com base no Status
-  const getStatusColor = (status) => {
-    switch (status) {
-      case "Aberta":
-        return "#4CAF50";
-      case "Em Analise":
-        return "#FFC107";
-      case "Resolvida":
-        return "#397688";
-      default:
-        return "#397688";
-    }
-  };
-
   // Listar todas solicitações com base no usuário logado
   const listarSolicitacoesPorUsuario = () => {
     setIsLoading(true);
@@ -159,7 +145,7 @@ const MyRequests = () => {
       <ShadowStyle>
         <Pressable onPress={() => setSelectedSolicitacao(null)}>
           <View style={styles.solicitacaoContainer}>
-            <Text style={[styles.solicitacaoTitle, {backgroundColor: getStatusColor(selectedSolicitacao.status)}]}>
+            <Text style={styles.solicitacaoTitle}>
               Solicitação #{selectedSolicitacao.idSolicitacao}
             </Text>
 

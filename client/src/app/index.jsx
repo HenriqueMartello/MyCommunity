@@ -1,27 +1,23 @@
 import { useEffect, useState } from "react";
-import { useRouter } from 'expo-router';
 import { LoginPage } from "./LoginPage";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SystemPage from "./System";
 
 export default function App() {
-
-  const router = useRouter();
   const [usuarioLogado, setUsuarioLogado] = useState(false);
 
   async function obterInformacoes() {
     const data = await AsyncStorage.getItem("usuarioLogado");
-    setUsuarioLogado(data);
-  } 
-  
+    setUsuarioLogado(data === 'true'); // Certifique-se de que 'data' é uma string 'true' ou 'false'
+  }
+
   useEffect(() => {
     obterInformacoes();
-  }, [usuarioLogado])
+  }, []);
 
   return (
     <>
       {usuarioLogado ? <SystemPage /> : <LoginPage />}
     </>
-
   )
 }

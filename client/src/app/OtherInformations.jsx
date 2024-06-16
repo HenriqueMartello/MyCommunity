@@ -1,24 +1,14 @@
+import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { ContentWrapper } from "./pages/components/ContentWrapper";
-import { useRouter } from "expo-router";
 import { Header } from "./pages/components/Header";
 
 const OtherInformations = () => {
-  const router = useRouter();
-
-  const handleBackButtonPress = () => {
-    navigation.goBack();
-  };
-
   const Info = ({ label, number }) => {
     return (
-      <View>
-        <Text style={{ fontWeight: 500, fontSize: 16, color: "#787878" }}>
-          {label}:
-        </Text>
-        <Text style={{ fontWeight: 600, fontSize: 20, color: "#397688" }}>
-          {number}
-        </Text>
+      <View style={styles.infoContainer}>
+        <Text style={styles.label}>{label}:</Text>
+        <Text style={styles.number}>{number}</Text>
       </View>
     );
   };
@@ -27,21 +17,9 @@ const OtherInformations = () => {
     <ContentWrapper style={styles.container}>
       <Header title="OUTRAS INFORMAÇÕES" />
 
-      <ScrollView
-        style={{
-          backgroundColor: "white",
-          width: "100%",
-          //   borderRadius: 15,
-        }}
-      >
-        <View
-          style={{
-            gap: 15,
-            paddingHorizontal: 20,
-            paddingVertical: 25,
-          }}
-        >
-          <Text style={{fontWeight: 500, textAlign: "center", fontSize: 22, color: "#397688"}}> CONTATOS DE EMERGÊNCIA  </Text>
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.content}>
+          <Text style={styles.sectionTitle}>CONTATOS DE EMERGÊNCIA</Text>
           <Info label="Bombeiros" number="192" />
           <Info label="Defesa Civil" number="199" />
           <Info label="Prefeitura" number="156" />
@@ -56,21 +34,38 @@ const OtherInformations = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingHorizontal: 25,
-    // paddingTop: 60,
-    // paddingBottom: 20,
   },
-  label: {
-    fontSize: 16,
-    textAlign: "left",
+  scrollView: {
+    backgroundColor: "white",
     width: "100%",
   },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-    padding: 10,
-    height: 100,
+  content: {
+    paddingHorizontal: 20,
+    paddingVertical: 25,
+    gap: 15,
+  },
+  sectionTitle: {
+    fontWeight: "bold",
+    fontSize: 22,
+    color: "#397688",
+    textAlign: "center",
+    marginBottom: 15,
+  },
+  infoContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  label: {
+    fontWeight: "500",
+    fontSize: 16,
+    color: "#787878",
+  },
+  number: {
+    fontWeight: "600",
+    fontSize: 20,
+    color: "#397688",
   },
 });
 

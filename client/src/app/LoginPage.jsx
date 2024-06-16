@@ -52,8 +52,6 @@ const handleLogin = (cpf, password) => {
 
 // Página de Login
 export const LoginPage = () => {
-  const router = useRouter();
-
   const [cpf, setCpf] = useState("");
   const [password, setPassword] = useState("");
   const [visiblePassword, setVisiblePassword] = useState(false);

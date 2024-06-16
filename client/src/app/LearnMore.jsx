@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { backendUrl } from "../Components/GlobalVariables";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -15,8 +15,7 @@ const LearnMore = () => {
       const token = await AsyncStorage.getItem("token");
       if (!token) return;
       const response = await axios.post(`${backendUrl}usuarioInfo`, { token });
-      const userData = response.data.data;
-      setProfile(userData);
+      setProfile(response.data.data);
     } catch (error) {
       console.error("Erro ao obter informações do usuário:", error);
     }
@@ -93,9 +92,9 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   contentWrapper: {
-    gap: 15,
     paddingHorizontal: 20,
     paddingVertical: 25,
+    gap: 15,
   },
 });
 
