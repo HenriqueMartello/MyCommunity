@@ -14,11 +14,10 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { backendUrl } from "../Components/GlobalVariables";
 
-const router = useRouter();
-
 // Função para Tratar Login
 const handleLogin = (cpf, password) => {
-  
+  const router = useRouter();
+
   if (!cpf || !password) {
     Alert.alert("Erro", "CPF e senha são obrigatórios.");
     console.log("CPF e senha são obrigatórios.");
@@ -52,6 +51,8 @@ const handleLogin = (cpf, password) => {
 
 // Página de Login
 export const LoginPage = () => {
+  const router = useRouter();
+
   const [cpf, setCpf] = useState("");
   const [password, setPassword] = useState("");
   const [visiblePassword, setVisiblePassword] = useState(false);

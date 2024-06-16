@@ -142,7 +142,7 @@ const MyRequests = () => {
     const endereco = selectedSolicitacao.endereco;
 
     return (
-      <ShadowStyle>
+      <ShadowStyle key={selectedSolicitacao.idSolicitacao}>
         <Pressable onPress={() => setSelectedSolicitacao(null)}>
           <View style={styles.solicitacaoContainer}>
             <Text style={styles.solicitacaoTitle}>
@@ -248,7 +248,8 @@ const MyRequests = () => {
                     >
                       <View style={[styles.solicitacaoContainer]}>
                         <Text style={styles.solicitacaoTitle}>
-                          Solicitação #{solicitacao._id} | Status: {solicitacao.status}
+                          Solicitação #{solicitacao._id} | Status:{" "}
+                          {solicitacao.status}
                         </Text>
 
                         <View
