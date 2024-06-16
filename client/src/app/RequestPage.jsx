@@ -28,12 +28,51 @@ const RequestPage = () => {
     obterToken();
   }, []);
 
+  // Obter Token do Usuário
   async function obterToken() {
     // Token recebido da solicitação de login, que foi salvo localmente
     const userToken = await AsyncStorage.getItem("token");
     setToken(userToken);
+    
+    if (userToken) {
+      obterEndereco(userToken);
+      Alert.alert("Dados pré-preenchidos com base no endereço de registro do usuário!");
+    }
   }
 
+  // Função auxiliar para definir estado
+  const setField = (setter, value) => {
+    if (value !== null && value !== undefined) {
+      setter(typeof value === 'number' ? value.toString() : value.trim() !== "" ? value : "");
+    } else {
+      setter("");
+    }
+  };
+
+  // Obter dados do Endereço do Usuário
+  async function obterEndereco(token) {
+    axios
+      .post(`${backendUrl}consultaEndereco`, { token })
+      .then((res) => {
+        if (res.data.status == "OK") {
+          // Popular dados do endereço
+          const dadosEndereco = res.data.data;
+          setField(setEndereco, dadosEndereco.endereco);
+          setField(setCEP, dadosEndereco.cep);
+          setField(setNumero, dadosEndereco.numero);
+          setField(setBairro, dadosEndereco.bairro);
+          setField(setCidade, dadosEndereco.cidade);
+          setField(setUF, dadosEndereco.UF);
+        } else {
+          Alert.alert("Problemas ao obter os dados do endereço do usuário, insira manualmente!");
+        }
+      })
+      .catch((e) => {
+        console.error("Erro na requisição: ", e)
+      });
+  }
+
+  // Tratar criação da Solicitação
   const handleSubmit = () => {
     const solicData = {
       token,
@@ -157,7 +196,7 @@ const RequestPage = () => {
               secureTextEntry={false}
               height={100}
             />
-            <MediaPicker onSelect={handleMediaSelect} />
+            
           </View>
         </ScrollView>
       </View>

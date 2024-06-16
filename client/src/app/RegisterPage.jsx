@@ -99,12 +99,42 @@ export default function RegisterPage() {
     if (
       dataToInsert.CPF.length !== 14 ||
       dataToInsert.numeroTelefonico.length !== 14 ||
-      dataToInsert.dataNascimento.length !== 10
+      dataToInsert.dataNascimento.length !== 10 ||
+      dataToInsert.CEP.length !== 8
     ) {
       return false;
     }
     return true;
   };
+
+  // Consultar o CEP fornecido e autocompletar no registro
+  const consultaCEP = () => {
+    if (dataToInsert.CEP.length == 8) {
+      axios
+      .get(`https://viacep.com.br/ws/${dataToInsert.CEP}/json/`)
+      .then((res) => {
+        console.log(res.data)
+        // Parar inserção de dados se não encontrar o CEP pela consulta
+        if (res.data.erro) {
+          Alert.alert("CEP não identificado na base de dados!")
+          return;
+        }
+
+        // Atualiza os campos do formulário com os dados retornados pela API
+        setDataToInsert((prevState) => ({
+          ...prevState,
+          endereco: res.data.logradouro || "",
+          bairro: res.data.bairro || "",
+          cidade: res.data.localidade || "",
+          UF: res.data.uf || "",
+        }));
+
+      })
+      .catch((e) => console.log(e));
+    } else {
+      Alert.alert("O CEP não é válido, verifique se digitou corretamente!")
+    }
+  }
 
   // Retorna o componente do Formulario de Usuário
   return (
@@ -168,9 +198,11 @@ export default function RegisterPage() {
             onChangeText={(text) => handleChange("CEP", text)}
             keyboardType="numeric"
             placeholder="CEP"
+            maxLength={8}
             autoCompleteType="street-address"
             secureTextEntry={false}
           />
+           <Button label="Validar CEP" width="40%" onPress={() => consultaCEP()} />
             <Input
               value={dataToInsert.endereco}
               onChangeText={(text) => handleChange("endereco", text)}
