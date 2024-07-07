@@ -145,7 +145,7 @@ const RequestPage = () => {
               paddingTop: 25,
             }}
           >
-            <Text style={styles.label}>Selecione um item:</Text>
+            <Text style={styles.label}>Selecione o tipo de solicitação:</Text>
             <DropdownMenu onSelect={handleItemSelect} value={selectedItem} />
             <Text style={styles.label}>Endereço:</Text>
 

@@ -98,10 +98,19 @@ export default function RegisterPage() {
   const validarCampos = () => {
     if (
       dataToInsert.CPF.length !== 14 ||
-      dataToInsert.numeroTelefonico.length !== 14 ||
       dataToInsert.dataNascimento.length !== 10 ||
       dataToInsert.CEP.length !== 8
     ) {
+      if (dataToInsert.CPF.length !== 14) {
+        Alert.alert("O campo CPF não está completo!");
+      }
+      if (dataToInsert.dataNascimento.length) {
+        Alert.alert("A data de nascimento não está completa!");
+      }
+      if (dataToInsert.CEP.length !== 8) {
+        Alert.alert("O campo de CEP não foi preenchido!");
+      }
+      
       return false;
     }
     return true;

@@ -6,7 +6,7 @@ const DropdownMenu = ({ onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
-  const optionsList = ["Limpeza", "Manutenção", "Lixo"];
+  const optionsList = ["Coleta de Resíduos", "Manutenção de via Pública", "Manutenção Fluvial", "Manutenção de Iluminação Pública", "Solicitação de Conservação de Parques e Praças Públicas", "Melhoria de Infraestrutura Urbana", "Outro"];
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
